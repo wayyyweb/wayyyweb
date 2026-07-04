@@ -91,6 +91,7 @@ services.forEach((s,i) => {
     <p class="text-sm" style="color:var(--muted)">${s.desc}</p>
   </div>`);
 });
+svcGrid.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 const portfolioItems = [
   {cat:'Company Profile', name:'Cendana Group', color:'var(--primary)'},
@@ -162,6 +163,7 @@ whyItems.forEach((w,i) => {
     <p class="text-sm" style="color:var(--muted)">${w.desc}</p>
   </div>`);
 });
+whyGrid.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 const timelineSteps = [
   {name:'Konsultasi', desc:'Diskusi awal kebutuhan dan tujuan website Anda.', icon:'message-square'},
@@ -234,6 +236,7 @@ faqs.forEach((f,i) => {
     <div class="acc-content px-6"><p class="pb-6 text-sm" style="color:var(--muted)">${f.a}</p></div>
   </div>`);
 });
+faqList.querySelectorAll('.reveal').forEach(el => io.observe(el));
 lucide.createIcons();
 document.querySelectorAll('.faq-btn').forEach(btn => {
   btn.addEventListener('click', () => {
