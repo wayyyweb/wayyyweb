@@ -94,16 +94,16 @@ services.forEach((s,i) => {
 svcGrid.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 const portfolioItems = [
-  {cat:'Company Profile', name:'Cendana Group', color:'var(--primary)', img:'img/cendana.png', desc:'Company profile korporat untuk grup bisnis multi-unit, dengan tampilan tegas dan profesional.'},
-  {cat:'Travel', name:'Nusantara Trip', color:'var(--secondary)', img:'img/travel.png', desc:'Website travel agent dengan katalog paket wisata dan nuansa petualangan.'},
-  {cat:'Villa', name:'Villa Kayu Manis', color:'var(--accent)', img:'img/villa.png', desc:'Website private villa dengan sistem booking terintegrasi dan nuansa tropis.'},
-  {cat:'Homestay', name:'Homestay Alam Sari', color:'var(--magenta)', img:'img/homestay.png', desc:'Website homestay dengan nuansa alam yang hangat dan galeri kamar.'},
-  {cat:'Restaurant', name:'Rasa Nusantara', color:'var(--primary)', img:'img/restaurant.png', desc:'Website restaurant dengan sistem reservasi meja online dan tampilan elegan.'},
-  {cat:'Cafe', name:'Kopi Senja', color:'var(--secondary)', img:'img/cafe.png', desc:'Website cafe dengan tampilan hangat, cocok untuk menarik pelanggan baru.'},
-  {cat:'Rental Motor', name:'Rental Jaya Motor', color:'var(--accent)', img:'img/motor.png', desc:'Website sewa motor harian, mingguan, hingga bulanan yang praktis.'},
-  {cat:'Rental Mobil', name:'Prime Car Rental', color:'var(--magenta)', img:'img/mobil.png', desc:'Landing page rental mobil premium dengan sistem booking online.'},
-  {cat:'Website Pribadi', name:'Portfolio Andra', color:'var(--primary)', img:'img/andra.png', desc:'Website portofolio pribadi untuk product designer & photographer.'},
-  {cat:'Undangan Digital', name:'Nadia & Raka', color:'var(--secondary)', img:'img/undangan.png', desc:'Undangan pernikahan digital elegan dengan RSVP online.'},
+  {cat:'Company Profile', name:'Cendana Group', color:'var(--primary)', img:'img/10-company-profile-cendana.png'},
+  {cat:'Travel', name:'Nusantara Trip', color:'var(--secondary)', img:'img/9-travel-nusantara-trip.png'},
+  {cat:'Villa', name:'Villa Kayu Manis', color:'var(--accent)', img:'img/8-villa-kayu-manis.png'},
+  {cat:'Homestay', name:'Homestay Alam Sari', color:'var(--magenta)', img:'img/7-homestay-alam-sari.png'},
+  {cat:'Restaurant', name:'Rasa Nusantara', color:'var(--primary)', img:'img/6-rasa-nusantara.png'},
+  {cat:'Cafe', name:'Kopi Senja', color:'var(--secondary)', img:'img/5-kopi-senja.png'},
+  {cat:'Rental Motor', name:'Rental Jaya Motor', color:'var(--accent)', img:'img/4-rental-jaya-motor.png'},
+  {cat:'Rental Mobil', name:'Prime Car Rental', color:'var(--magenta)', img:'img/3-prime-car-rental.png'},
+  {cat:'Website Pribadi', name:'Portfolio Andra', color:'var(--primary)', img:'img/2-website-pribadi-andra.png'},
+  {cat:'Undangan Digital', name:'Nadia & Raka', color:'var(--secondary)', img:'img/1-undangan-nadia-raka.png'},
 ];
 const categories = ['Semua', ...new Set(portfolioItems.map(p=>p.cat))];
 const filterBar = document.getElementById('filter-bar');
@@ -111,13 +111,11 @@ categories.forEach(c => {
   filterBar.insertAdjacentHTML('beforeend', `<button data-cat="${c}" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold border ${c==='Semua'?'active':''}" style="border-color:var(--line)">${c}</button>`);
 });
 const pfGrid = document.getElementById('portfolio-grid');
-let currentFilteredItems = [];
 function renderPortfolio(filter){
   pfGrid.innerHTML = '';
-  currentFilteredItems = portfolioItems.filter(p => filter==='Semua' || p.cat===filter);
-  currentFilteredItems.forEach((p,i) => {
+  portfolioItems.filter(p => filter==='Semua' || p.cat===filter).forEach((p,i) => {
     pfGrid.insertAdjacentHTML('beforeend', `
-    <div class="reveal-scale group card rounded-2xl overflow-hidden cursor-pointer" data-index="${i}" style="transition-delay:${(i%3)*0.08}s">
+    <div class="reveal-scale group card rounded-2xl overflow-hidden cursor-pointer" style="transition-delay:${(i%3)*0.08}s">
       <div class="h-44 relative overflow-hidden">
         <img src="${p.img}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
         <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
@@ -132,9 +130,6 @@ function renderPortfolio(filter){
   });
   lucide.createIcons();
   pfGrid.querySelectorAll('.reveal-scale').forEach(el => io.observe(el));
-  pfGrid.querySelectorAll('[data-index]').forEach(card => {
-    card.addEventListener('click', () => openPortfolioModal(currentFilteredItems[+card.dataset.index]));
-  });
 }
 renderPortfolio('Semua');
 filterBar.addEventListener('click', (e) => {
@@ -143,38 +138,6 @@ filterBar.addEventListener('click', (e) => {
   btn.classList.add('active');
   renderPortfolio(btn.dataset.cat);
 });
-
-/* ---------- Portfolio detail modal ---------- */
-const pfModal = document.getElementById('portfolio-modal');
-const pfModalContent = document.getElementById('portfolio-modal-content');
-function openPortfolioModal(p){
-  const waText = encodeURIComponent(`Halo WayyyWeb, saya tertarik dengan project "${p.name}" (${p.cat}) di portfolio. Boleh minta info lebih lanjut?`);
-  pfModalContent.innerHTML = `
-    <div class="relative">
-      <button id="pf-modal-close" aria-label="Tutup" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full glass flex items-center justify-center">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-      <img src="${p.img}" alt="${p.name}" class="w-full aspect-[3/2] object-cover">
-    </div>
-    <div class="p-7 sm:p-8">
-      <span class="text-xs font-semibold" style="color:var(--secondary)">${p.cat}</span>
-      <h3 class="font-display font-extrabold text-2xl mt-1 mb-3">${p.name}</h3>
-      <p class="text-sm leading-relaxed mb-7" style="color:var(--muted)">${p.desc}</p>
-      <a href="https://wa.me/628139369459?text=${waText}" target="_blank" rel="noopener" class="btn-primary w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold inline-flex items-center justify-center gap-2">
-        <i data-lucide="message-circle" class="w-4 h-4"></i> Tanyakan Project Ini
-      </a>
-    </div>`;
-  lucide.createIcons();
-  pfModal.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-  document.getElementById('pf-modal-close').addEventListener('click', closePortfolioModal);
-}
-function closePortfolioModal(){
-  pfModal.classList.add('hidden');
-  document.body.style.overflow = '';
-}
-pfModal.addEventListener('click', (e) => { if(e.target === pfModal) closePortfolioModal(); });
-document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closePortfolioModal(); });
 
 const whyItems = [
   {icon:'gem', name:'Design Premium', desc:'Tampilan setara agency profesional kelas atas.'},
