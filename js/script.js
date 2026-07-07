@@ -97,7 +97,7 @@ const portfolioItems = [
   {cat:'Company Profile', name:'Cendana Group', color:'var(--primary)', img:'img/cendana.png', desc:'Company profile korporat untuk grup bisnis multi-unit, dengan tampilan tegas dan profesional.', demo:'portofolio/cendana-group/index.html'},
   {cat:'Travel', name:'Nusantara Trip', color:'var(--secondary)', img:'img/travel.png', desc:'Website travel agent dengan katalog paket wisata dan nuansa petualangan.', demo:'portofolio/travel/index.html'},
   {cat:'Restaurant', name:'Kedai Woeloeng', color:'var(--primary)', img:'img/restaurant.png', desc:'Website restaurant dengan sistem reservasi meja online dan tampilan elegan.', demo:'portofolio/restaurant/index.html'},
-  {cat:'Cafe', name:'Kawungan Coffee', color:'var(--secondary)', img:'img/cafe.png', desc:'Website cafe dengan tampilan hangat, cocok untuk menarik pelanggan baru.', demo:'http://localhost:3000'},
+  {cat:'Cafe', name:'Kawungan Coffee', color:'var(--secondary)', img:'img/cafe.png', desc:'Website cafe dengan tampilan hangat, cocok untuk menarik pelanggan baru.', demo:'https://wayyyweb-cafe.vercel.app/'},
   {cat:'Rental Motor', name:'Velora Rent', color:'var(--accent)', img:'img/rental.png', desc:'Website sewa motor & mobil harian, mingguan, hingga bulanan yang praktis.', demo:'portofolio/rental/index.html'},
   {cat:'Website Pribadi', name:'Web Personal Rachel Vennya', color:'var(--primary)', img:'img/buna.png', desc:'Website portofolio pribadi untuk selebgram,fashion & Trip.', demo:'portofolio/rachel-vennya/index.html'},
   {cat:'Undangan Digital', name:'Nadia & Raka', color:'var(--secondary)', img:'img/undangan.png', desc:'Undangan pernikahan digital elegan dengan RSVP online.', demo:'portofolio/undangan/index.html'},
