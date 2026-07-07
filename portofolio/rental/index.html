@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velora Rent — Sewa Mobil & Motor Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal: #14161a;
+    --charcoal-soft: #1b1e24;
+    --charcoal-card: rgba(255,255,255,0.045);
+    --border-glass: rgba(255,255,255,0.09);
+    --neon: #00e6ff;
+    --neon-dim: rgba(0,230,255,0.35);
+    --orange: #ff6a2b;
+    --orange-dim: rgba(255,106,43,0.35);
+    --text: #f4f6f9;
+    --text-muted: #9aa1ad;
+    --text-faint: #6b7280;
+    --radius: 18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--charcoal);
+    color: var(--text);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.display{font-family:'Poppins', sans-serif;}
+  a{text-decoration:none; color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; cursor:pointer; border:none;}
+  .container{max-width:1240px; margin:0 auto; padding:0 32px;}
+
+  /* Background ambience */
+  .bg-grid{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,230,255,0.07), transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(255,106,43,0.06), transparent 40%);
+  }
+
+  /* ===== Fade in on scroll ===== */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.1s;}
+  .reveal-delay-2{transition-delay:.2s;}
+  .reveal-delay-3{transition-delay:.3s;}
+  .reveal-delay-4{transition-delay:.4s;}
+
+  /* ===== Navbar (Glassmorphism) ===== */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:18px 0;
+  }
+  .nav-inner{
+    max-width:1240px; margin:0 auto; padding:14px 26px;
+    display:flex; align-items:center; justify-content:space-between;
+    background: rgba(20,22,26,0.55);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border:1px solid var(--border-glass);
+    border-radius: 999px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  }
+  .logo{
+    font-weight:800; font-size:21px; letter-spacing:0.3px;
+    display:flex; align-items:center; gap:9px;
+  }
+  .logo span.dot{
+    width:9px; height:9px; border-radius:50%;
+    background: linear-gradient(135deg, var(--neon), var(--orange));
+    box-shadow: 0 0 12px var(--neon), 0 0 6px var(--orange);
+  }
+  nav.links{display:flex; gap:34px; font-size:14.5px; font-weight:500; color:var(--text-muted);}
+  nav.links a{transition:color .25s;}
+  nav.links a:hover{color:var(--text);}
+  .nav-cta{
+    display:flex; align-items:center; gap:16px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:12px 26px; border-radius:999px; font-weight:600; font-size:14.5px;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, background .3s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--neon), #0090ff);
+    color:#04141a;
+    box-shadow: 0 0 0 rgba(0,230,255,0);
+  }
+  .btn-primary:hover{
+    transform: translateY(-2px) scale(1.045);
+    box-shadow: 0 0 26px var(--neon-dim), 0 0 55px rgba(0,230,255,0.18);
+  }
+  .btn-orange{
+    background: linear-gradient(135deg, var(--orange), #ff9046);
+    color:#1a0900;
+  }
+  .btn-orange:hover{
+    transform: translateY(-2px) scale(1.045);
+    box-shadow: 0 0 26px var(--orange-dim), 0 0 55px rgba(255,106,43,0.2);
+  }
+  .btn-ghost{
+    background: rgba(255,255,255,0.04);
+    border:1px solid var(--border-glass);
+    color:var(--text);
+  }
+  .btn-ghost:hover{
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-2px);
+  }
+  .btn-lg{padding:17px 38px; font-size:16px;}
+  .burger{display:none; width:26px; height:20px; flex-direction:column; justify-content:space-between; background:none;}
+  .burger span{height:2px; width:100%; background:var(--text); border-radius:2px;}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative; padding:190px 0 120px;
+    display:flex; align-items:center; min-height:92vh;
+  }
+  .hero .container{
+    display:grid; grid-template-columns: 1.05fr 0.95fr; gap:50px; align-items:center;
+    position:relative; z-index:2;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:600; letter-spacing:0.6px; text-transform:uppercase;
+    color: var(--neon); padding:7px 16px; border-radius:999px;
+    background: rgba(0,230,255,0.08); border:1px solid rgba(0,230,255,0.25);
+    margin-bottom:26px;
+  }
+  .hero h1{
+    font-size:clamp(38px, 5vw, 62px); font-weight:800; line-height:1.08; letter-spacing:-0.5px;
+    margin-bottom:24px;
+  }
+  .hero h1 .accent{
+    background: linear-gradient(120deg, var(--neon), var(--orange));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{
+    font-size:17.5px; color:var(--text-muted); max-width:480px; line-height:1.7; margin-bottom:38px;
+  }
+  .hero-cta-row{display:flex; align-items:center; gap:20px; flex-wrap:wrap;}
+  .glow-btn{position:relative;}
+  .glow-btn::after{
+    content:''; position:absolute; inset:-3px; border-radius:999px; z-index:-1;
+    background: linear-gradient(135deg, var(--neon), var(--orange));
+    opacity:0.55; filter: blur(16px);
+    transition: opacity .35s ease, filter .35s ease;
+  }
+  .glow-btn:hover::after{opacity:0.9; filter: blur(22px);}
+
+  .hero-stats{display:flex; gap:34px; margin-top:56px; flex-wrap:wrap;}
+  .stat-mini b{display:block; font-family:'Poppins'; font-size:26px; font-weight:800;}
+  .stat-mini span{font-size:13px; color:var(--text-faint);}
+
+  .hero-visual{position:relative; height:520px;}
+  .hero-card-main{
+    position:absolute; inset:0;
+    border-radius: 28px; overflow:hidden;
+    border:1px solid var(--border-glass);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+  }
+  .hero-card-main img{width:100%; height:100%; object-fit:cover; will-change:transform;}
+  .hero-card-main::after{
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(20,22,26,0) 40%, rgba(20,22,26,0.85) 100%);
+  }
+  .float-chip{
+    position:absolute; z-index:5;
+    background: rgba(20,22,26,0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border:1px solid var(--border-glass);
+    border-radius:16px; padding:14px 18px;
+    display:flex; align-items:center; gap:12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    animation: floaty 5s ease-in-out infinite;
+  }
+  .float-chip.c1{ top:26px; left:-30px; animation-delay:.2s;}
+  .float-chip.c2{ bottom:34px; right:-24px; animation-delay:1s;}
+  @keyframes floaty{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+  .float-chip .ico{
+    width:38px; height:38px; border-radius:11px; display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg, var(--neon), var(--orange)); flex-shrink:0;
+  }
+  .float-chip b{font-size:15px; font-family:'Poppins'; font-weight:700; display:block;}
+  .float-chip span{font-size:12px; color:var(--text-muted);}
+
+  /* ===== Section generic ===== */
+  section{position:relative; padding:120px 0; z-index:1;}
+  .section-head{max-width:640px; margin:0 auto 60px; text-align:center;}
+  .section-head .eyebrow{margin-bottom:18px;}
+  .section-head h2{font-size:clamp(28px,4vw,42px); font-weight:800; letter-spacing:-0.5px; margin-bottom:16px;}
+  .section-head p{color:var(--text-muted); font-size:16px; line-height:1.7;}
+
+  /* ===== Fleet / Tabs ===== */
+  .tab-switch{
+    display:flex; justify-content:center; gap:6px; margin-bottom:52px;
+  }
+  .tab-switch-inner{
+    display:inline-flex; gap:4px; padding:6px;
+    background: rgba(255,255,255,0.035);
+    border:1px solid var(--border-glass); border-radius:999px;
+  }
+  .tab-btn{
+    padding:11px 30px; border-radius:999px; font-weight:600; font-size:14.5px;
+    color:var(--text-muted); background:transparent; transition: all .35s ease;
+  }
+  .tab-btn.active{
+    color:#04141a;
+    background: linear-gradient(135deg, var(--neon), var(--orange));
+    box-shadow: 0 0 22px rgba(0,230,255,0.25);
+  }
+
+  .fleet-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:26px;
+  }
+  .fleet-card{
+    background: var(--charcoal-card);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border:1px solid var(--border-glass);
+    border-radius: var(--radius);
+    overflow:hidden;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .4s ease, box-shadow .4s ease;
+    display:none;
+  }
+  .fleet-card.show{display:block;}
+  .fleet-card:hover{
+    transform: translateY(-8px);
+    border-color: rgba(0,230,255,0.35);
+    box-shadow: 0 20px 55px rgba(0,0,0,0.45), 0 0 30px rgba(0,230,255,0.08);
+  }
+  .fleet-img{height:190px; overflow:hidden; position:relative;}
+  .fleet-img img{width:100%; height:100%; object-fit:cover; transition: transform .6s ease;}
+  .fleet-card:hover .fleet-img img{transform:scale(1.08);}
+  .fleet-tag{
+    position:absolute; top:14px; left:14px; font-size:11.5px; font-weight:700; letter-spacing:.4px;
+    padding:5px 12px; border-radius:999px; text-transform:uppercase;
+    background: rgba(20,22,26,0.65); backdrop-filter: blur(8px); border:1px solid var(--border-glass);
+    color: var(--neon);
+  }
+  .fleet-body{padding:22px;}
+  .fleet-body h3{font-size:19px; font-weight:700; margin-bottom:6px;}
+  .fleet-specs{display:flex; gap:14px; color:var(--text-faint); font-size:13px; margin-bottom:18px;}
+  .fleet-foot{display:flex; align-items:center; justify-content:space-between;}
+  .price b{font-family:'Poppins'; font-size:20px; font-weight:800; color:var(--text);}
+  .price span{font-size:12.5px; color:var(--text-faint);}
+  .btn-sm{padding:10px 20px; font-size:13.5px;}
+
+  /* ===== Features ===== */
+  .feat-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:22px;
+  }
+  .feat-card{
+    background: var(--charcoal-card);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border:1px solid var(--border-glass);
+    border-radius: var(--radius);
+    padding:32px 26px;
+    transition: transform .4s ease, border-color .4s ease;
+  }
+  .feat-card:hover{transform:translateY(-6px); border-color: rgba(255,106,43,0.35);}
+  .feat-ico{
+    width:52px; height:52px; border-radius:14px; margin-bottom:20px;
+    display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg, rgba(0,230,255,0.15), rgba(255,106,43,0.15));
+    border:1px solid var(--border-glass);
+  }
+  .feat-card h3{font-size:17px; font-weight:700; margin-bottom:10px;}
+  .feat-card p{font-size:14px; color:var(--text-muted); line-height:1.65;}
+
+  /* ===== How it works ===== */
+  .steps-wrap{position:relative;}
+  .steps-line{
+    position:absolute; top:34px; left:0; right:0; height:1px;
+    background: linear-gradient(90deg, transparent, var(--border-glass) 15%, var(--border-glass) 85%, transparent);
+  }
+  .steps-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; position:relative;}
+  .step{text-align:left;}
+  .step-num{
+    width:68px; height:68px; border-radius:50%; margin-bottom:22px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Poppins'; font-weight:800; font-size:22px;
+    background: var(--charcoal-soft); border:1px solid var(--border-glass); position:relative; z-index:2;
+    color:var(--neon);
+  }
+  .step h3{font-size:16.5px; font-weight:700; margin-bottom:10px;}
+  .step p{font-size:14px; color:var(--text-muted); line-height:1.6;}
+
+  /* ===== Stats / odometer ===== */
+  .stats-band{
+    background: linear-gradient(135deg, rgba(0,230,255,0.06), rgba(255,106,43,0.05));
+    border-top:1px solid var(--border-glass); border-bottom:1px solid var(--border-glass);
+    padding:80px 0;
+  }
+  .stats-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center;}
+  .odometer{
+    font-family:'Poppins'; font-weight:900; font-size:clamp(34px,4vw,50px);
+    background: linear-gradient(120deg, var(--neon), var(--orange));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    letter-spacing:-1px;
+  }
+  .stat-label{margin-top:8px; font-size:13.5px; color:var(--text-muted); letter-spacing:.3px;}
+
+  /* ===== Testimonials ===== */
+  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .testi-card{
+    background: var(--charcoal-card);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border:1px solid var(--border-glass); border-radius: var(--radius);
+    padding:30px;
+  }
+  .stars{color:var(--orange); font-size:15px; margin-bottom:16px; letter-spacing:2px;}
+  .testi-card p{font-size:14.5px; color:var(--text-muted); line-height:1.7; margin-bottom:22px;}
+  .testi-user{display:flex; align-items:center; gap:12px;}
+  .testi-avatar{
+    width:42px; height:42px; border-radius:50%; overflow:hidden; flex-shrink:0;
+    border:1px solid var(--border-glass);
+  }
+  .testi-avatar img{width:100%; height:100%; object-fit:cover;}
+  .testi-user b{font-size:14px; display:block;}
+  .testi-user span{font-size:12.5px; color:var(--text-faint);}
+
+  /* ===== Final CTA ===== */
+  .final-cta{
+    position:relative; text-align:center; padding:100px 40px; border-radius:32px;
+    background: radial-gradient(circle at 30% 20%, rgba(0,230,255,0.1), transparent 55%),
+                radial-gradient(circle at 80% 80%, rgba(255,106,43,0.1), transparent 55%),
+                var(--charcoal-soft);
+    border:1px solid var(--border-glass);
+    overflow:hidden;
+  }
+  .final-cta h2{font-size:clamp(28px,4.5vw,44px); font-weight:800; margin-bottom:18px; letter-spacing:-.5px;}
+  .final-cta p{color:var(--text-muted); max-width:520px; margin:0 auto 38px; font-size:16px;}
+
+  /* ===== Footer ===== */
+  footer{padding:70px 0 34px; border-top:1px solid var(--border-glass);}
+  .foot-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; margin-bottom:50px;
+  }
+  .foot-brand p{color:var(--text-muted); font-size:14px; line-height:1.7; margin:18px 0 20px; max-width:280px;}
+  .foot-col h4{font-size:14px; font-weight:700; margin-bottom:18px; letter-spacing:.3px;}
+  .foot-col li{margin-bottom:12px;}
+  .foot-col a{font-size:14px; color:var(--text-muted); transition:color .25s;}
+  .foot-col a:hover{color:var(--neon);}
+  .foot-social{display:flex; gap:10px;}
+  .foot-social a{
+    width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background: rgba(255,255,255,0.04); border:1px solid var(--border-glass); transition: all .3s ease;
+  }
+  .foot-social a:hover{background: rgba(0,230,255,0.12); border-color:var(--neon-dim);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:28px; border-top:1px solid var(--border-glass);
+    font-size:13px; color:var(--text-faint); flex-wrap:wrap; gap:14px;
+  }
+
+  /* ===== Floating WhatsApp ===== */
+  .wa-float{
+    position:fixed; bottom:28px; right:28px; z-index:200;
+    width:62px; height:62px; border-radius:50%;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 10px 30px rgba(37,211,102,0.35), 0 0 0 rgba(37,211,102,0.5);
+    animation: wa-pulse 2.4s ease-in-out infinite;
+    transition: transform .3s ease;
+  }
+  .wa-float:hover{transform: scale(1.12);}
+  @keyframes wa-pulse{
+    0%{box-shadow: 0 10px 30px rgba(37,211,102,0.35), 0 0 0 0 rgba(37,211,102,0.45);}
+    70%{box-shadow: 0 10px 30px rgba(37,211,102,0.35), 0 0 0 16px rgba(37,211,102,0);}
+    100%{box-shadow: 0 10px 30px rgba(37,211,102,0.35), 0 0 0 0 rgba(37,211,102,0);}
+  }
+  .wa-tooltip{
+    position:absolute; right:74px; top:50%; transform:translateY(-50%);
+    background: var(--charcoal-soft); border:1px solid var(--border-glass);
+    padding:8px 14px; border-radius:10px; font-size:13px; white-space:nowrap;
+    opacity:0; pointer-events:none; transition: opacity .3s ease;
+  }
+  .wa-float:hover .wa-tooltip{opacity:1;}
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px){
+    nav.links{display:none;}
+    .burger{display:flex;}
+    .hero .container{grid-template-columns:1fr;}
+    .hero-visual{height:380px; margin-top:20px;}
+    .fleet-grid{grid-template-columns:repeat(2,1fr);}
+    .feat-grid{grid-template-columns:repeat(2,1fr);}
+    .steps-grid{grid-template-columns:repeat(2,1fr); row-gap:40px;}
+    .steps-line{display:none;}
+    .stats-grid{grid-template-columns:repeat(2,1fr); row-gap:36px;}
+    .testi-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr; row-gap:34px;}
+  }
+  @media (max-width: 620px){
+    .container{padding:0 20px;}
+    .hero{padding:150px 0 80px;}
+    .hero-stats{gap:22px;}
+    .float-chip{padding:11px 14px;}
+    .float-chip.c1{left:8px;}
+    .float-chip.c2{right:8px;}
+    .fleet-grid{grid-template-columns:1fr;}
+    .feat-grid{grid-template-columns:1fr;}
+    .steps-grid{grid-template-columns:1fr;}
+    .stats-grid{grid-template-columns:1fr 1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .nav-cta .btn-ghost{display:none;}
+    .wa-float{width:54px; height:54px; bottom:18px; right:18px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<!-- ===== Navbar ===== -->
+<header>
+  <div class="nav-inner">
+    <div class="logo"><span class="dot"></span>Velora<span style="font-weight:400; opacity:.8;">Rent</span></div>
+    <nav class="links">
+      <a href="#armada">Armada</a>
+      <a href="#kenapa">Keunggulan</a>
+      <a href="#cara-sewa">Cara Sewa</a>
+      <a href="#testimoni">Testimoni</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#kontak" class="btn btn-ghost" style="display:inline-flex;">Hubungi Kami</a>
+      <a href="#armada" class="btn btn-primary">Pesan Sekarang</a>
+    </div>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="beranda">
+  <div class="container">
+    <div class="hero-text">
+      <div class="eyebrow reveal">⚡ Rental Kendaraan Masa Kini</div>
+      <h1 class="reveal">Jelajahi Kota dengan <span class="accent">Kecepatan & Gaya</span> Tanpa Batas</h1>
+      <p class="lead reveal reveal-delay-1">Velora Rent menghadirkan armada mobil dan motor premium, siap antar dalam hitungan menit. Proses booking cepat, transparan, dan tanpa ribet.</p>
+      <div class="hero-cta-row reveal reveal-delay-2">
+        <a href="#armada" class="btn btn-orange btn-lg glow-btn">Pesan Kendaraan Sekarang</a>
+        <a href="#cara-sewa" class="btn btn-ghost btn-lg">Lihat Cara Sewa</a>
+      </div>
+      <div class="hero-stats reveal reveal-delay-3">
+        <div class="stat-mini"><b>500+</b><span>Unit Armada</span></div>
+        <div class="stat-mini"><b>24/7</b><span>Layanan Antar</span></div>
+        <div class="stat-mini"><b>4.9★</b><span>Rating Pelanggan</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal reveal-delay-2">
+      <div class="hero-card-main" id="parallaxImg">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80" alt="Mobil sport Velora Rent">
+      </div>
+      <div class="float-chip c1">
+        <div class="ico">🚗</div>
+        <div><b>120+ Mobil</b><span>Sedan – SUV – Sport</span></div>
+      </div>
+      <div class="float-chip c2">
+        <div class="ico">🏍️</div>
+        <div><b>80+ Motor</b><span>Matic – Sport – Trail</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Fleet / Armada ===== -->
+<section id="armada">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Armada Kami</div>
+      <h2>Pilih Kendaraan Sesuai Kebutuhanmu</h2>
+      <p>Semua unit terawat, bergaransi kebersihan & servis rutin. Filter berdasarkan kategori untuk menemukan kendaraan idealmu.</p>
+    </div>
+
+    <div class="tab-switch reveal">
+      <div class="tab-switch-inner">
+        <button class="tab-btn active" data-filter="mobil">Mobil</button>
+        <button class="tab-btn" data-filter="motor">Motor</button>
+      </div>
+    </div>
+
+    <div class="fleet-grid">
+      <!-- Mobil -->
+      <div class="fleet-card show cat-mobil reveal">
+        <div class="fleet-img"><span class="fleet-tag">Sedan</span><img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=700&q=80" alt="Sedan"></div>
+        <div class="fleet-body">
+          <h3>Velora Sedan Elite</h3>
+          <div class="fleet-specs"><span>👤 4 Kursi</span><span>⚙️ Matic</span><span>❄️ AC</span></div>
+          <div class="fleet-foot">
+            <div class="price"><b>Rp350rb</b><span>/hari</span></div>
+            <a href="#kontak" class="btn btn-primary btn-sm">Sewa</a>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card show cat-mobil reveal reveal-delay-1">
+        <div class="fleet-img"><span class="fleet-tag">SUV</span><img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=700&q=80" alt="SUV"></div>
+        <div class="fleet-body">
+          <h3>Velora SUV Terrain</h3>
+          <div class="fleet-specs"><span>👤 7 Kursi</span><span>⚙️ Matic</span><span>❄️ AC</span></div>
+          <div class="fleet-foot">
+            <div class="price"><b>Rp550rb</b><span>/hari</span></div>
+            <a href="#kontak" class="btn btn-primary btn-sm">Sewa</a>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card show cat-mobil reveal reveal-delay-2">
+        <div class="fleet-img"><span class="fleet-tag">Sport</span><img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=700&q=80" alt="Mobil sport"></div>
+        <div class="fleet-body">
+          <h3>Velora Sport Coupe</h3>
+          <div class="fleet-specs"><span>👤 2 Kursi</span><span>⚙️ Matic</span><span>❄️ AC</span></div>
+          <div class="fleet-foot">
+            <div class="price"><b>Rp950rb</b><span>/hari</span></div>
+            <a href="#kontak" class="btn btn-primary btn-sm">Sewa</a>
+          </div>
+        </div>
+      </div>
+      <!-- Motor -->
+      <div class="fleet-card cat-motor reveal">
+        <div class="fleet-img"><span class="fleet-tag">Matic</span><img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80" alt="Motor matic"></div>
+        <div class="fleet-body">
+          <h3>Velora Matic Urban</h3>
+          <div class="fleet-specs"><span>⛽ 125cc</span><span>⚙️ Matic</span><span>🎒 Box</span></div>
+          <div class="fleet-foot">
+            <div class="price"><b>Rp75rb</b><span>/hari</span></div>
+            <a href="#kontak" class="btn btn-primary btn-sm">Sewa</a>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card cat-motor reveal reveal-delay-1">
+        <div class="fleet-img"><span class="fleet-tag">Sport</span><img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=700&q=80" alt="Motor sport"></div>
+        <div class="fleet-body">
+          <h3>Velora Sport Racer</h3>
+          <div class="fleet-specs"><span>⛽ 250cc</span><span>⚙️ Manual</span><span>🏁 Full Fairing</span></div>
+          <div class="fleet-foot">
+            <div class="price"><b>Rp180rb</b><span>/hari</span></div>
+            <a href="#kontak" class="btn btn-primary btn-sm">Sewa</a>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card cat-motor reveal reveal-delay-2">
+        <div class="fleet-img"><span class="fleet-tag">Trail</span><img src="https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&w=700&q=80" alt="Motor trail"></div>
+        <div class="fleet-body">
+          <h3>Velora Trail Explorer</h3>
+          <div class="fleet-specs"><span>⛽ 200cc</span><span>⚙️ Manual</span><span>🏔️ Off-road</span></div>
+          <div class="fleet-foot">
+            <div class="price"><b>Rp150rb</b><span>/hari</span></div>
+            <a href="#kontak" class="btn btn-primary btn-sm">Sewa</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Kenapa Pilih Kami ===== -->
+<section id="kenapa">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Keunggulan</div>
+      <h2>Kenapa Harus Velora Rent</h2>
+      <p>Kami membangun sistem rental yang cepat, aman, dan transparan — dirancang untuk pengalaman tanpa hambatan.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal">
+        <div class="feat-ico">⚡</div>
+        <h3>Proses Kilat</h3>
+        <p>Booking selesai dalam 3 menit lewat WhatsApp, tanpa antre dan tanpa dokumen ribet.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-ico">💎</div>
+        <h3>Harga Transparan</h3>
+        <p>Tidak ada biaya tersembunyi. Yang tertera adalah yang dibayar — jujur sejak awal.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-ico">🛡️</div>
+        <h3>Asuransi Perjalanan</h3>
+        <p>Setiap unit dilindungi asuransi dasar untuk ketenangan selama perjalanan.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-ico">🚚</div>
+        <h3>Antar-Jemput Gratis</h3>
+        <p>Kendaraan diantar langsung ke lokasi kamu di area yang terjangkau layanan kami.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Cara Sewa ===== -->
+<section id="cara-sewa">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Alur Pemesanan</div>
+      <h2>Sewa Dalam 4 Langkah Mudah</h2>
+      <p>Dari pilih kendaraan sampai jalan, semua bisa selesai sebelum kamu habis ngopi.</p>
+    </div>
+    <div class="steps-wrap">
+      <div class="steps-line"></div>
+      <div class="steps-grid">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <h3>Pilih Kendaraan</h3>
+          <p>Telusuri armada mobil atau motor sesuai kebutuhan dan budget kamu.</p>
+        </div>
+        <div class="step reveal reveal-delay-1">
+          <div class="step-num">02</div>
+          <h3>Isi Data Sewa</h3>
+          <p>Kirim tanggal, durasi, dan lokasi lewat WhatsApp atau form kontak.</p>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">03</div>
+          <h3>Konfirmasi & Bayar</h3>
+          <p>Tim kami konfirmasi ketersediaan lalu kamu selesaikan pembayaran.</p>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step-num">04</div>
+          <h3>Kendaraan Diantar</h3>
+          <p>Unit siap diantar ke lokasimu, langsung bisa dipakai jalan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Stats / Odometer ===== -->
+<section class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="reveal">
+        <div class="odometer" data-count="500">0</div>
+        <div class="stat-label">Unit Armada Aktif</div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="odometer" data-count="12000">0</div>
+        <div class="stat-label">Klien Puas</div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="odometer" data-count="18">0</div>
+        <div class="stat-label">Kota Terjangkau</div>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <div class="odometer" data-count="7">0</div>
+        <div class="stat-label">Tahun Pengalaman</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Testimoni ===== -->
+<section id="testimoni">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Testimoni</div>
+      <h2>Apa Kata Pelanggan Kami</h2>
+      <p>Kepuasan pelanggan adalah bahan bakar utama Velora Rent.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>Prosesnya cepat banget, unit diantar tepat waktu dan kondisinya bersih. Bakal repeat order lagi.</p>
+        <div class="testi-user">
+          <div class="testi-avatar"><img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=100&q=80" alt="Klien"></div>
+          <div><b>Dimas Prasetyo</b><span>Semarang</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="stars">★★★★★</div>
+        <p>Harga jelas dari awal, gak ada biaya tambahan yang bikin kaget. Sangat direkomendasikan.</p>
+        <div class="testi-user">
+          <div class="testi-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Klien"></div>
+          <div><b>Ayu Lestari</b><span>Yogyakarta</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="stars">★★★★★</div>
+        <p>Motor sportnya terawat dan enak dikendarai, admin fast response di WhatsApp. Mantap!</p>
+        <div class="testi-user">
+          <div class="testi-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Klien"></div>
+          <div><b>Rizky Ananda</b><span>Surabaya</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Final CTA ===== -->
+<section>
+  <div class="container">
+    <div class="final-cta reveal">
+      <h2>Siap Menjelajah Bersama Velora Rent?</h2>
+      <p>Booking sekarang, kendaraan diantar hari ini juga. Tim kami siap bantu 24 jam.</p>
+      <div class="hero-cta-row" style="justify-content:center;">
+        <a href="#armada" class="btn btn-orange btn-lg glow-btn">Pesan Kendaraan Sekarang</a>
+        <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-ghost btn-lg">Chat via WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer id="kontak">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><span class="dot"></span>Velora<span style="font-weight:400; opacity:.8;">Rent</span></div>
+        <p>Layanan sewa mobil dan motor premium dengan proses cepat, transparan, dan terpercaya di seluruh kota besar Indonesia.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="Facebook">📘</a>
+          <a href="https://wa.me/6281234567890" aria-label="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#armada">Armada</a></li>
+          <li><a href="#kenapa">Keunggulan</a></li>
+          <li><a href="#cara-sewa">Cara Sewa</a></li>
+          <li><a href="#testimoni">Testimoni</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="#">Sewa Mobil Harian</a></li>
+          <li><a href="#">Sewa Motor Harian</a></li>
+          <li><a href="#">Sewa Bulanan</a></li>
+          <li><a href="#">Antar-Jemput</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li><a href="tel:+6281234567890">+62 812-3456-7890</a></li>
+          <li><a href="mailto:halo@velorarent.id">halo@velorarent.id</a></li>
+          <li><a href="#">Jl. Diponegoro No.10, Semarang</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Velora Rent. Seluruh hak cipta dilindungi.</span>
+      <span>Dibuat dengan fokus pada kecepatan & kepercayaan.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Floating WhatsApp ===== -->
+<a href="https://wa.me/6281234567890" target="_blank" class="wa-float" aria-label="Chat via WhatsApp">
+  <span class="wa-tooltip">Chat via WhatsApp</span>
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.02 3.4a8.94 8.94 0 0 0-7.75 13.4L3 21l4.35-1.14a8.9 8.9 0 0 0 4.67 1.31h.01a8.93 8.93 0 0 0 8.92-8.94 8.86 8.86 0 0 0-2.65-6.29zM12.03 20a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.58.68.69-2.52-.18-.28a7.44 7.44 0 0 1 6.13-11.5 7.4 7.4 0 0 1 5.24 2.17 7.36 7.36 0 0 1 2.19 5.24A7.42 7.42 0 0 1 12.03 20zm4.07-5.56c-.22-.11-1.31-.65-1.51-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.17-.48.06-.22-.11-.94-.35-1.79-1.11a6.7 6.7 0 0 1-1.24-1.54c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.06-.6.28-.2.22-.79.77-.79 1.87s.81 2.17.92 2.32c.11.15 1.6 2.44 3.87 3.42.54.23.96.37 1.29.48.54.17 1.03.15 1.42.09.43-.06 1.31-.53 1.5-1.05.18-.51.18-.95.13-1.05-.06-.1-.2-.15-.42-.26z"/></svg>
+</a>
+
+<script>
+  // Mobile menu toggle
+  const burger = document.getElementById('burger');
+  const links = document.querySelector('nav.links');
+  burger.addEventListener('click', () => {
+    if(links.style.display === 'flex'){
+      links.style.display = 'none';
+    } else {
+      links.style.display = 'flex';
+      links.style.position='fixed';
+      links.style.top='90px';
+      links.style.left='20px';
+      links.style.right='20px';
+      links.style.flexDirection='column';
+      links.style.gap='18px';
+      links.style.background='rgba(20,22,26,0.92)';
+      links.style.backdropFilter='blur(18px)';
+      links.style.border='1px solid var(--border-glass)';
+      links.style.borderRadius='18px';
+      links.style.padding='24px';
+    }
+  });
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.15});
+  revealEls.forEach(el => io.observe(el));
+
+  // Parallax hero image
+  const parallaxImg = document.querySelector('#parallaxImg img');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if(parallaxImg){
+      parallaxImg.style.transform = `translateY(${y * 0.15}px) scale(1.1)`;
+    }
+  });
+
+  // Fleet tab filter
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const cards = document.querySelectorAll('.fleet-card');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        card.classList.remove('show');
+        if(card.classList.contains('cat-' + filter)){
+          card.classList.add('show');
+        }
+      });
+    });
+  });
+
+  // Odometer count-up
+  const odometers = document.querySelectorAll('.odometer');
+  const odoIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.dataset.count, 10);
+        let cur = 0;
+        const step = Math.max(1, Math.ceil(target / 60));
+        const timer = setInterval(() => {
+          cur += step;
+          if(cur >= target){ cur = target; clearInterval(timer); }
+          el.textContent = cur.toLocaleString('id-ID') + (target >= 100 ? '+' : '');
+        }, 25);
+        odoIO.unobserve(el);
+      }
+    });
+  }, {threshold: 0.4});
+  odometers.forEach(el => odoIO.observe(el));
+
+  // Navbar shrink on scroll
+  const headerEl = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 40){
+      headerEl.style.filter = 'drop-shadow(0 4px 20px rgba(0,0,0,0.3))';
+    }
+  });
+</script>
+</body>
+</html>

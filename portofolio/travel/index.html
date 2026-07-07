@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nusantara Trip — Travel Eksekutif Banjarnegara ⇄ Semarang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --onyx:#0B0F19;
+    --onyx-2:#121729;
+    --onyx-3:#182038;
+    --royal:#0F4C81;
+    --royal-light:#2E76B6;
+    --gold:#E5A93C;
+    --gold-dark:#C6862A;
+    --text:#F4F6FB;
+    --text-muted:#8B93A7;
+    --line:rgba(244,246,251,0.09);
+    --radius:20px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--onyx);
+    color:var(--text);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{font-family:'Syne', sans-serif; font-weight:800; letter-spacing:-0.02em;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .container{max-width:1240px; margin:0 auto; padding:0 24px;}
+  ::selection{background:var(--gold); color:var(--onyx);}
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- PRELOADER ---------- */
+  #preloader{
+    position:fixed; inset:0; background:var(--onyx); z-index:9999;
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:18px;
+    transition:opacity .7s ease, visibility .7s ease;
+  }
+  #preloader.done{opacity:0; visibility:hidden; pointer-events:none;}
+  .loader-mark{
+    width:64px; height:64px; position:relative;
+  }
+  .loader-mark svg{width:100%; height:100%; animation:spinRoad 1.4s cubic-bezier(.6,0,.4,1) infinite;}
+  @keyframes spinRoad{
+    0%{transform:rotate(0deg) scale(1);}
+    50%{transform:rotate(180deg) scale(1.12);}
+    100%{transform:rotate(360deg) scale(1);}
+  }
+  .loader-text{font-family:'Syne',sans-serif; font-weight:700; letter-spacing:0.3em; font-size:12px; color:var(--text-muted); text-transform:uppercase;}
+  .loader-text span{color:var(--gold);}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:18px; left:0; right:0; z-index:900;
+    display:flex; justify-content:center;
+  }
+  .nav-capsule{
+    display:flex; align-items:center; gap:38px;
+    background:rgba(18,23,41,0.65);
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:12px 14px 12px 24px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.35);
+    width:calc(100% - 48px); max-width:1100px;
+  }
+  .nav-logo{font-family:'Syne',sans-serif; font-weight:800; font-size:18px; white-space:nowrap;}
+  .nav-logo em{font-style:normal; color:var(--gold);}
+  .nav-links{display:flex; gap:28px; margin-left:auto; font-size:14px; font-weight:500; color:var(--text-muted);}
+  .nav-links a{transition:color .25s ease;}
+  .nav-links a:hover, .nav-links a:focus-visible{color:var(--text);}
+  .nav-phone{
+    display:flex; align-items:center; gap:8px;
+    background:var(--gold); color:var(--onyx);
+    font-weight:700; font-size:13px;
+    padding:10px 18px; border-radius:100px;
+    white-space:nowrap;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .nav-phone:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(229,169,60,0.35);}
+  .nav-burger{display:none; margin-left:auto; background:none; border:none; color:var(--text); font-size:22px; cursor:pointer;}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .nav-phone{display:none;}
+    .nav-burger{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; min-height:100vh;
+    display:flex; align-items:center;
+    padding:140px 0 100px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 900px 600px at 82% 18%, rgba(15,76,129,0.55), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 90%, rgba(229,169,60,0.12), transparent 60%),
+      var(--onyx);
+  }
+  #road-svg{
+    position:absolute; inset:0; width:100%; height:100%;
+    opacity:0.9; z-index:0; transition:transform .2s ease-out;
+  }
+  .hero-grain{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.4) 70%, var(--onyx) 100%);
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;
+    width:100%;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.15em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:26px; height:1px; background:var(--gold);}
+  .hero h1{
+    font-size:clamp(2.2rem, 4.6vw, 4rem);
+    line-height:1.06;
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{color:var(--gold);}
+  .hero p.sub{
+    color:var(--text-muted); font-size:17px; max-width:520px; margin-bottom:34px;
+  }
+  .hero-cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:16px 28px; border-radius:100px;
+    font-weight:700; font-size:14.5px; cursor:pointer; border:none;
+    position:relative; overflow:hidden;
+  }
+  .btn-primary{
+    background:linear-gradient(100deg, var(--gold), #F2C368, var(--gold-dark));
+    background-size:220% 100%;
+    color:var(--onyx);
+    transition:background-position .5s ease, transform .25s ease, box-shadow .25s ease;
+    box-shadow:0 10px 30px rgba(229,169,60,0.25);
+  }
+  .btn-primary:hover{background-position:100% 0; transform:translateY(-3px); box-shadow:0 14px 36px rgba(229,169,60,0.4);}
+  .btn-primary::after{
+    content:''; position:absolute; inset:0; border-radius:100px;
+    box-shadow:0 0 0 0 rgba(229,169,60,0.5);
+    animation:ripple 2.6s ease-out infinite;
+  }
+  @keyframes ripple{
+    0%{box-shadow:0 0 0 0 rgba(229,169,60,0.35);}
+    70%{box-shadow:0 0 0 14px rgba(229,169,60,0);}
+    100%{box-shadow:0 0 0 0 rgba(229,169,60,0);}
+  }
+  .btn-ghost{
+    background:rgba(244,246,251,0.06); color:var(--text);
+    border:1px solid var(--line);
+    transition:background .25s ease, border-color .25s ease;
+  }
+  .btn-ghost:hover{background:rgba(244,246,251,0.12); border-color:rgba(244,246,251,0.25);}
+
+  .trust-row{display:flex; gap:28px; margin-top:44px; flex-wrap:wrap;}
+  .trust-item{display:flex; flex-direction:column;}
+  .trust-item strong{font-family:'Syne',sans-serif; font-size:22px; color:var(--gold);}
+  .trust-item span{font-size:12.5px; color:var(--text-muted);}
+
+  /* Booking widget */
+  .booking-card{
+    background:rgba(18,23,41,0.55);
+    backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+    border:1px solid rgba(244,246,251,0.14);
+    border-radius:26px; padding:32px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.5);
+  }
+  .booking-card h3{font-size:19px; margin-bottom:6px;}
+  .booking-card .sub-label{font-size:13px; color:var(--text-muted); margin-bottom:24px;}
+  .field-group{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  .field{
+    display:flex; flex-direction:column; gap:6px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--line); border-radius:14px; padding:12px 14px;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .field:focus-within{border-color:var(--gold); background:rgba(229,169,60,0.06);}
+  .field label{font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted);}
+  .field select, .field input{
+    background:none; border:none; color:var(--text); font-family:'Plus Jakarta Sans'; font-size:14.5px; font-weight:600;
+    outline:none; width:100%;
+  }
+  .field select option{background:var(--onyx-2); color:var(--text);}
+  .swap-row{grid-column:1/-1; display:flex; justify-content:center; margin:-4px 0;}
+  .swap-btn{
+    width:34px; height:34px; border-radius:50%; border:1px solid var(--line);
+    background:rgba(255,255,255,0.05); color:var(--gold); cursor:pointer; font-size:14px;
+    display:flex; align-items:center; justify-content:center; transition:transform .3s ease, background .2s ease;
+  }
+  .swap-btn:hover{transform:rotate(180deg); background:rgba(229,169,60,0.15);}
+  .field.full{grid-column:1/-1;}
+  .booking-submit{width:100%; justify-content:center; margin-top:8px;}
+  .booking-note{font-size:11.5px; color:var(--text-muted); text-align:center; margin-top:14px;}
+
+  @media (max-width:980px){
+    .hero-inner{grid-template-columns:1fr;}
+    .booking-card{max-width:520px;}
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:120px 0;}
+  .section-head{max-width:640px; margin-bottom:64px;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{font-size:clamp(1.8rem, 3.2vw, 2.6rem); margin-bottom:16px;}
+  .section-head p{color:var(--text-muted); font-size:16px;}
+
+  .reveal{opacity:0; transform:translateY(36px); transition:opacity .8s cubic-bezier(.2,.7,.3,1), transform .8s cubic-bezier(.2,.7,.3,1);}
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- ROUTE TIMELINE ---------- */
+  .route-section{background:var(--onyx-2); position:relative;}
+  .route-line{
+    position:relative; display:flex; justify-content:space-between; gap:20px;
+    margin-bottom:80px;
+  }
+  .route-line::before{
+    content:''; position:absolute; top:17px; left:4%; right:4%; height:2px;
+    background:repeating-linear-gradient(90deg, var(--gold) 0 10px, transparent 10px 20px);
+    opacity:0.5;
+  }
+  .route-stop{flex:1; text-align:center; position:relative;}
+  .route-dot{
+    width:36px; height:36px; border-radius:50%; margin:0 auto 18px;
+    background:var(--onyx-3); border:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono'; font-size:13px; font-weight:600; color:var(--gold);
+    position:relative; z-index:1;
+  }
+  .route-stop h4{font-size:15.5px; margin-bottom:6px;}
+  .route-stop p{font-size:13px; color:var(--text-muted); max-width:170px; margin:0 auto;}
+
+  @media (max-width:760px){
+    .route-line{flex-direction:column; gap:36px;}
+    .route-line::before{display:none;}
+  }
+
+  .departure-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+  }
+  .dep-slot{
+    background:var(--onyx-3); border:1px solid var(--line); border-radius:16px;
+    padding:22px 18px; cursor:pointer; text-align:center;
+    transition:border-color .25s ease, transform .25s ease, background .25s ease;
+  }
+  .dep-slot:hover{border-color:var(--gold); transform:translateY(-4px); background:rgba(229,169,60,0.06);}
+  .dep-slot .time{font-family:'JetBrains Mono'; font-size:24px; font-weight:600; color:var(--gold); display:block; margin-bottom:6px;}
+  .dep-slot .label{font-size:12.5px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;}
+  @media (max-width:700px){.departure-grid{grid-template-columns:repeat(2,1fr);}}
+
+  /* ---------- AMENITIES ---------- */
+  .amenity-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .amenity-card{
+    background:var(--onyx-2); border:1px solid var(--line); border-radius:var(--radius);
+    padding:30px 24px; position:relative; overflow:hidden;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .amenity-card:hover{transform:translateY(-6px); border-color:rgba(229,169,60,0.4);}
+  .amenity-card::before{
+    content:''; position:absolute; top:-40%; right:-40%; width:140px; height:140px;
+    background:radial-gradient(circle, rgba(229,169,60,0.18), transparent 70%);
+    opacity:0; transition:opacity .3s ease;
+  }
+  .amenity-card:hover::before{opacity:1;}
+  .amenity-icon{
+    width:48px; height:48px; border-radius:14px; margin-bottom:20px;
+    background:linear-gradient(135deg, var(--royal), var(--royal-light));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .amenity-card h4{font-size:16px; margin-bottom:8px;}
+  .amenity-card p{font-size:13.5px; color:var(--text-muted);}
+  @media (max-width:900px){.amenity-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.amenity-grid{grid-template-columns:1fr;}}
+
+  /* ---------- FLEET ---------- */
+  .fleet-split{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  .fleet-card{
+    background:linear-gradient(160deg, var(--onyx-2), var(--onyx-3));
+    border:1px solid var(--line); border-radius:26px; padding:36px;
+    position:relative; overflow:hidden;
+  }
+  .fleet-badge{
+    display:inline-block; background:rgba(229,169,60,0.14); color:var(--gold);
+    font-family:'JetBrains Mono'; font-size:11.5px; padding:6px 12px; border-radius:100px;
+    margin-bottom:20px; letter-spacing:0.05em;
+  }
+  .fleet-card h3{font-size:24px; margin-bottom:10px;}
+  .fleet-card .tag{color:var(--text-muted); font-size:14px; margin-bottom:24px;}
+  .fleet-specs{list-style:none; display:flex; flex-direction:column; gap:12px; margin-bottom:26px;}
+  .fleet-specs li{display:flex; justify-content:space-between; font-size:13.5px; border-bottom:1px dashed var(--line); padding-bottom:10px; color:var(--text-muted);}
+  .fleet-specs li b{color:var(--text); font-weight:600;}
+  .fleet-visual{
+    height:150px; border-radius:16px; margin-bottom:24px;
+    background:linear-gradient(135deg, rgba(15,76,129,0.5), rgba(229,169,60,0.15));
+    display:flex; align-items:center; justify-content:center;
+  }
+  @media (max-width:860px){.fleet-split{grid-template-columns:1fr;}}
+
+  /* ---------- FOOTER ---------- */
+  .footer-banner{
+    background:linear-gradient(135deg, var(--royal) 0%, #0A3560 60%, var(--onyx) 100%);
+    border-radius:32px; padding:70px 50px; text-align:center; position:relative; overflow:hidden;
+    margin:0 24px;
+  }
+  .footer-banner::before{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 20% 20%, rgba(229,169,60,0.25), transparent 55%);
+  }
+  .footer-banner h2{font-size:clamp(1.8rem,3.4vw,2.8rem); position:relative; margin-bottom:16px;}
+  .footer-banner p{color:rgba(244,246,251,0.75); margin-bottom:32px; position:relative;}
+  .footer-phone{
+    font-family:'JetBrains Mono'; font-size:clamp(1.4rem,3vw,2rem); color:var(--gold); font-weight:600;
+    position:relative; display:inline-block; margin-bottom:30px;
+  }
+  footer.site-end{
+    padding:60px 24px 40px; text-align:center; color:var(--text-muted); font-size:13px;
+  }
+  footer.site-end .brand{font-family:'Syne'; font-weight:800; color:var(--text); font-size:16px; margin-bottom:8px; display:block;}
+
+  /* ---------- FLOATING WA ---------- */
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:800;
+    display:flex; align-items:center; gap:10px;
+    background:#25D366; color:#06210F; font-weight:700; font-size:13.5px;
+    padding:15px 22px; border-radius:100px; box-shadow:0 12px 30px rgba(37,211,102,0.4);
+    transition:transform .25s ease;
+  }
+  .wa-float:hover{transform:translateY(-4px) scale(1.03);}
+  .wa-float svg{width:20px; height:20px; flex-shrink:0;}
+
+  @media (max-width:600px){
+    .section{padding:80px 0;}
+    .footer-banner{padding:50px 26px; margin:0 14px;}
+    .wa-float span{display:none;}
+    .wa-float{padding:15px; border-radius:50%;}
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="loader-mark">
+    <svg viewBox="0 0 64 64" fill="none">
+      <path d="M32 4 C14 4 4 18 4 32 C4 48 18 60 32 60" stroke="#E5A93C" stroke-width="4" stroke-linecap="round"/>
+      <path d="M32 4 C50 4 60 18 60 32 C60 48 46 60 32 60" stroke="#0F4C81" stroke-width="4" stroke-linecap="round" stroke-dasharray="4 8"/>
+    </svg>
+  </div>
+  <div class="loader-text">NUSANTARA <span>TRIP</span></div>
+</div>
+
+<header>
+  <nav class="nav-capsule">
+    <div class="nav-logo">Nusantara<em>Trip</em></div>
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#route">Route &amp; Schedule</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#fleet">Fleet</a>
+    </div>
+    <a class="nav-phone" href="tel:08123456789">📞 0812-3456-789</a>
+    <button class="nav-burger" aria-label="Menu">☰</button>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero">
+  <svg id="road-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="roadGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#0F4C81" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#E5A93C" stop-opacity="0.12"/>
+      </linearGradient>
+    </defs>
+    <path d="M -100 700 C 200 750, 300 500, 500 460 C 750 410, 780 250, 1000 180 C 1150 130, 1250 90, 1400 40"
+          stroke="url(#roadGrad)" stroke-width="140" fill="none" stroke-linecap="round"/>
+    <path d="M -100 700 C 200 750, 300 500, 500 460 C 750 410, 780 250, 1000 180 C 1150 130, 1250 90, 1400 40"
+          stroke="#0B0F19" stroke-width="118" fill="none" stroke-linecap="round"/>
+    <path d="M -100 700 C 200 750, 300 500, 500 460 C 750 410, 780 250, 1000 180 C 1150 130, 1250 90, 1400 40"
+          stroke="#F4F6FB" stroke-width="3" stroke-dasharray="26 30" fill="none" stroke-linecap="round" opacity="0.5"/>
+  </svg>
+  <div class="hero-grain"></div>
+
+  <div class="container hero-inner">
+    <div class="reveal is-visible">
+      <div class="eyebrow">Executive Intercity Travel</div>
+      <h1>Travel Eksekutif Banjarnegara – Semarang: <span class="accent">Tepat Waktu, Nyaman, &amp; Door-to-Door.</span></h1>
+      <p class="sub">Nikmati perjalanan lintas kota berkelas premium bersama Nusantara Trip. Armada modern, via jalur cepat/tol, siap antar-jemput langsung depan rumah Anda.</p>
+      <div class="hero-cta-row">
+        <a class="btn btn-primary" id="hero-cta" href="#booking-form">🎟️ Cek Ketersediaan Kursi</a>
+        <a class="btn btn-ghost" href="#route">Lihat Jadwal &amp; Rute</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><strong>4x</strong><span>Keberangkatan / hari</span></div>
+        <div class="trust-item"><strong>100%</strong><span>Door-to-door</span></div>
+        <div class="trust-item"><strong>2</strong><span>Kelas armada eksekutif</span></div>
+      </div>
+    </div>
+
+    <form class="booking-card reveal is-visible" id="booking-form">
+      <h3>Cek Ketersediaan Kursi</h3>
+      <p class="sub-label">Isi detail perjalanan Anda, kami siapkan kursi terbaik.</p>
+      <div class="field-group">
+        <div class="field">
+          <label for="origin">Asal</label>
+          <select id="origin">
+            <option>Banjarnegara</option>
+            <option>Semarang</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="destination">Tujuan</label>
+          <select id="destination">
+            <option>Semarang</option>
+            <option>Banjarnegara</option>
+          </select>
+        </div>
+        <div class="swap-row">
+          <button type="button" class="swap-btn" id="swap-btn" aria-label="Tukar asal dan tujuan">⇅</button>
+        </div>
+        <div class="field full">
+          <label for="departure-date">Tanggal Keberangkatan</label>
+          <input type="date" id="departure-date">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary booking-submit">Check Seats Availability →</button>
+      <p class="booking-note">Konfirmasi instan via WhatsApp resmi kami.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ================= ROUTE & SCHEDULE ================= -->
+<section class="section route-section" id="route">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Alur Perjalanan</div>
+      <h2>Satu rute, empat titik kepercayaan.</h2>
+      <p>Dari depan rumah Anda di Banjarnegara hingga tujuan akhir di Semarang — setiap etape dirancang untuk kenyamanan dan ketepatan waktu.</p>
+    </div>
+
+    <div class="route-line">
+      <div class="route-stop reveal">
+        <div class="route-dot">A</div>
+        <h4>Jemput Banjarnegara</h4>
+        <p>Layanan door-to-door, langsung dari alamat Anda.</p>
+      </div>
+      <div class="route-stop reveal">
+        <div class="route-dot">B</div>
+        <h4>Wonosobo · Temanggung</h4>
+        <p>Melintasi jalur pegunungan dengan pemandangan alam yang menenangkan.</p>
+      </div>
+      <div class="route-stop reveal">
+        <div class="route-dot">C</div>
+        <h4>Jalur Cepat / Tol</h4>
+        <p>Masuk jalan tol untuk mempersingkat waktu tempuh perjalanan.</p>
+      </div>
+      <div class="route-stop reveal">
+        <div class="route-dot">D</div>
+        <h4>Tiba di Semarang</h4>
+        <p>Drop-off fleksibel termasuk Bandara &amp; Stasiun Kereta.</p>
+      </div>
+    </div>
+
+    <div class="section-head reveal" style="margin-bottom:32px;">
+      <div class="eyebrow">Jadwal Keberangkatan</div>
+      <h2>Pilih slot yang sesuai jadwal Anda.</h2>
+    </div>
+    <div class="departure-grid">
+      <div class="dep-slot reveal" data-time="06:00"><span class="time">06:00</span><span class="label">Pagi</span></div>
+      <div class="dep-slot reveal" data-time="13:00"><span class="time">13:00</span><span class="label">Siang</span></div>
+      <div class="dep-slot reveal" data-time="17:00"><span class="time">17:00</span><span class="label">Sore</span></div>
+      <div class="dep-slot reveal" data-time="21:00"><span class="time">21:00</span><span class="label">Malam</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AMENITIES ================= -->
+<section class="section" id="amenities">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Fasilitas Eksekutif</div>
+      <h2>Kenyamanan yang terasa di setiap detail.</h2>
+      <p>Kami merancang setiap perjalanan agar terasa seperti kabin eksekutif berjalan, bukan sekadar antar-jemput biasa.</p>
+    </div>
+    <div class="amenity-grid">
+      <div class="amenity-card reveal">
+        <div class="amenity-icon">🚪</div>
+        <h4>Door-to-Door Service</h4>
+        <p>Penjemputan dan pengantaran langsung ke alamat tujuan Anda.</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="amenity-icon">❄️</div>
+        <h4>Full AC &amp; Audio</h4>
+        <p>Kabin sejuk dengan sistem audio premium sepanjang perjalanan.</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="amenity-icon">🔌</div>
+        <h4>Individual Charging Port</h4>
+        <p>Port pengisian daya di setiap kursi, perangkat Anda tetap terisi.</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="amenity-icon">🛋️</div>
+        <h4>Ergonomic Reclining Seat</h4>
+        <p>Kursi reclining ergonomis untuk perjalanan panjang yang tetap nyaman.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FLEET ================= -->
+<section class="section" id="fleet" style="background:var(--onyx-2);">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Armada Pilihan</div>
+      <h2>Dua kelas, satu standar eksekutif.</h2>
+      <p>Pilih armada sesuai kebutuhan perjalanan Anda — bersama rombongan atau privat.</p>
+    </div>
+    <div class="fleet-split">
+      <div class="fleet-card reveal">
+        <span class="fleet-badge">GROUP EXECUTIVE</span>
+        <div class="fleet-visual">🚐</div>
+        <h3>Toyota Hiace Commuter / Premio</h3>
+        <p class="tag">Kelegaan untuk perjalanan grup eksekutif.</p>
+        <ul class="fleet-specs">
+          <li>Kapasitas <b>10–14 kursi</b></li>
+          <li>Konfigurasi <b>Reclining Seat</b></li>
+          <li>Kabin <b>Full AC + Audio</b></li>
+          <li>Cocok untuk <b>Grup &amp; Keluarga</b></li>
+        </ul>
+        <a class="btn btn-ghost" href="#booking-form">Pilih Armada Ini</a>
+      </div>
+      <div class="fleet-card reveal">
+        <span class="fleet-badge">PRIVATE EXCLUSIVE</span>
+        <div class="fleet-visual">🚙</div>
+        <h3>Toyota Innova Reborn / Zenix</h3>
+        <p class="tag">Privasi dan kenyamanan kelas eksklusif.</p>
+        <ul class="fleet-specs">
+          <li>Kapasitas <b>4–6 kursi</b></li>
+          <li>Konfigurasi <b>Captain Seat</b></li>
+          <li>Kabin <b>Premium Interior</b></li>
+          <li>Cocok untuk <b>Perjalanan Privat</b></li>
+        </ul>
+        <a class="btn btn-ghost" href="#booking-form">Pilih Armada Ini</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER CTA ================= -->
+<section class="section" style="padding-top:0;">
+  <div class="footer-banner reveal">
+    <h2>Siap Berangkat? Amankan Kursi Pilihan Anda Sekarang!</h2>
+    <p>Tim kami siap membantu proses booking Anda kapan saja.</p>
+    <div class="footer-phone">📞 0812-3456-789</div>
+    <div>
+      <a class="btn btn-primary" href="https://wa.me/628123456789?text=Halo%20Nusantara%20Trip%2C%20saya%20ingin%20booking%20perjalanan." target="_blank" rel="noopener">Pesan Sekarang via WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-end">
+  <span class="brand">Nusantara Trip</span>
+  Travel Eksekutif Banjarnegara ⇄ Semarang · © 2026 Nusantara Trip. All rights reserved.
+</footer>
+
+<a class="wa-float" id="wa-float" href="https://wa.me/6282133356713?text=Halo%20Nusantara%20Trip%2C%20saya%20ingin%20menanyakan%20jadwal%20keberangkatan." target="_blank" rel="noopener" aria-label="Pesan Instan via WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#06210F"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7C17.16 3.03 14.68 2 12.04 2zm0 18.07h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.31c0-4.53 3.69-8.22 8.24-8.22 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.82c0 4.53-3.69 8.15-8.23 8.15zm4.52-6.14c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.12-.17.25-.65.81-.79.97-.15.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.39-1.73-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+  <span>Pesan Instan via WA</span>
+</a>
+
+<script>
+  // Preloader
+  window.addEventListener('load', () => {
+    setTimeout(() => document.getElementById('preloader').classList.add('done'), 500);
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('is-visible'), i * 60);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Hero parallax on mouse move
+  const road = document.getElementById('road-svg');
+  const heroEl = document.querySelector('.hero');
+  heroEl.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    road.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+  });
+  heroEl.addEventListener('mouseleave', () => {
+    road.style.transform = 'translate(0,0) scale(1)';
+  });
+
+  // Swap origin/destination
+  document.getElementById('swap-btn').addEventListener('click', () => {
+    const origin = document.getElementById('origin');
+    const dest = document.getElementById('destination');
+    const tmp = origin.selectedIndex;
+    origin.selectedIndex = dest.selectedIndex;
+    dest.selectedIndex = tmp;
+  });
+
+  // Departure slot select -> highlight + scroll to booking
+  document.querySelectorAll('.dep-slot').forEach(slot => {
+    slot.addEventListener('click', () => {
+      document.querySelectorAll('.dep-slot').forEach(s => s.style.borderColor = '');
+      slot.style.borderColor = 'var(--gold)';
+      document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
+  // Booking form submit -> redirect to WhatsApp with prefilled message
+  document.getElementById('booking-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const origin = document.getElementById('origin').value;
+    const destination = document.getElementById('destination').value;
+    const date = document.getElementById('departure-date').value || '(belum dipilih)';
+    const msg = encodeURIComponent(
+      `Halo Nusantara Trip, saya ingin cek ketersediaan kursi:\nAsal: ${origin}\nTujuan: ${destination}\nTanggal: ${date}`
+    );
+    window.open(`https://wa.me/6282133356713?text=${msg}`, '_blank');
+  });
+</script>
+
+</body>
+</html>

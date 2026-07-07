@@ -94,16 +94,13 @@ services.forEach((s,i) => {
 svcGrid.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 const portfolioItems = [
-  {cat:'Company Profile', name:'Cendana Group', color:'var(--primary)', img:'img/cendana.png', desc:'Company profile korporat untuk grup bisnis multi-unit, dengan tampilan tegas dan profesional.'},
-  {cat:'Travel', name:'Nusantara Trip', color:'var(--secondary)', img:'img/travel.png', desc:'Website travel agent dengan katalog paket wisata dan nuansa petualangan.'},
-  {cat:'Villa', name:'Villa Kayu Manis', color:'var(--accent)', img:'img/villa.png', desc:'Website private villa dengan sistem booking terintegrasi dan nuansa tropis.'},
-  {cat:'Homestay', name:'Homestay Alam Sari', color:'var(--magenta)', img:'img/homestay.png', desc:'Website homestay dengan nuansa alam yang hangat dan galeri kamar.'},
-  {cat:'Restaurant', name:'Rasa Nusantara', color:'var(--primary)', img:'img/restaurant.png', desc:'Website restaurant dengan sistem reservasi meja online dan tampilan elegan.'},
-  {cat:'Cafe', name:'Kopi Senja', color:'var(--secondary)', img:'img/cafe.png', desc:'Website cafe dengan tampilan hangat, cocok untuk menarik pelanggan baru.'},
-  {cat:'Rental Motor', name:'Rental Jaya Motor', color:'var(--accent)', img:'img/motor.png', desc:'Website sewa motor harian, mingguan, hingga bulanan yang praktis.'},
-  {cat:'Rental Mobil', name:'Prime Car Rental', color:'var(--magenta)', img:'img/mobil.png', desc:'Landing page rental mobil premium dengan sistem booking online.'},
-  {cat:'Website Pribadi', name:'Portfolio Andra', color:'var(--primary)', img:'img/andra.png', desc:'Website portofolio pribadi untuk product designer & photographer.'},
-  {cat:'Undangan Digital', name:'Nadia & Raka', color:'var(--secondary)', img:'img/undangan.png', desc:'Undangan pernikahan digital elegan dengan RSVP online.'},
+  {cat:'Company Profile', name:'Cendana Group', color:'var(--primary)', img:'img/cendana.png', desc:'Company profile korporat untuk grup bisnis multi-unit, dengan tampilan tegas dan profesional.', demo:'portofolio/cendana-group/index.html'},
+  {cat:'Travel', name:'Nusantara Trip', color:'var(--secondary)', img:'img/travel.png', desc:'Website travel agent dengan katalog paket wisata dan nuansa petualangan.', demo:'portofolio/travel/index.html'},
+  {cat:'Restaurant', name:'Kedai Woeloeng', color:'var(--primary)', img:'img/restaurant.png', desc:'Website restaurant dengan sistem reservasi meja online dan tampilan elegan.', demo:'portofolio/restaurant/index.html'},
+  {cat:'Cafe', name:'Kawungan Coffee', color:'var(--secondary)', img:'img/cafe.png', desc:'Website cafe dengan tampilan hangat, cocok untuk menarik pelanggan baru.', demo:'portofolio/cafe/index.html'},
+  {cat:'Rental Motor', name:'Velora Rent', color:'var(--accent)', img:'img/rental.png', desc:'Website sewa motor & mobil harian, mingguan, hingga bulanan yang praktis.', demo:'portofolio/rental/index.html'},
+  {cat:'Website Pribadi', name:'Web Personal Rachel Vennya', color:'var(--primary)', img:'img/buna.png', desc:'Website portofolio pribadi untuk selebgram,fashion & Trip.', demo:'portofolio/rachel-vennya/index.html'},
+  {cat:'Undangan Digital', name:'Nadia & Raka', color:'var(--secondary)', img:'img/undangan.png', desc:'Undangan pernikahan digital elegan dengan RSVP online.', demo:'portofolio/undangan/index.html'},
 ];
 const categories = ['Semua', ...new Set(portfolioItems.map(p=>p.cat))];
 const filterBar = document.getElementById('filter-bar');
@@ -160,9 +157,14 @@ function openPortfolioModal(p){
       <span class="text-xs font-semibold" style="color:var(--secondary)">${p.cat}</span>
       <h3 class="font-display font-extrabold text-2xl mt-1 mb-3">${p.name}</h3>
       <p class="text-sm leading-relaxed mb-7" style="color:var(--muted)">${p.desc}</p>
-      <a href="https://wa.me/628139369459?text=${waText}" target="_blank" rel="noopener" class="btn-primary w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold inline-flex items-center justify-center gap-2">
-        <i data-lucide="message-circle" class="w-4 h-4"></i> Tanyakan Project Ini
-      </a>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="${p.demo}" target="_blank" rel="noopener" class="btn-ghost border w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold inline-flex items-center justify-center gap-2" style="border-color:var(--line)">
+          <i data-lucide="external-link" class="w-4 h-4"></i> Lihat Demo
+        </a>
+        <a href="https://wa.me/628139369459?text=${waText}" target="_blank" rel="noopener" class="btn-primary w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold inline-flex items-center justify-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> Tanyakan Project Ini
+        </a>
+      </div>
     </div>`;
   lucide.createIcons();
   pfModal.classList.remove('hidden');
@@ -224,12 +226,12 @@ tlWrap.innerHTML = `<div class="absolute left-[27px] md:left-1/2 top-0 bottom-0 
 tlWrap.querySelectorAll('.reveal-left,.reveal-right').forEach(el => io.observe(el));
 
 const testimonials = [
-  {name:'Dewi Anjani', role:'Owner Villa Kayu Manis', text:'Website villa kami jadi jauh lebih menarik dan booking meningkat drastis sejak pakai WayyyWeb.', rating:5},
-  {name:'Rian Pratama', role:'Founder Rental Jaya Motor', text:'Proses cepat, hasilnya rapi, dan tim WayyyWeb sangat responsif membantu revisi.', rating:5},
-  {name:'Siti Nurhaliza', role:'Owner Kopi Senja', text:'Desainnya modern banget, pelanggan jadi lebih percaya sama brand cafe kami.', rating:5},
-  {name:'Budi Santoso', role:'CEO Cendana Group', text:'Company profile kami terlihat jauh lebih profesional, cocok untuk presentasi klien.', rating:4},
+  {name:'Dewi Anjani', role:'Owner Travel Nusantara Trip', text:'Website travel kami jadi jauh lebih menarik dan booking meningkat drastis sejak pakai WayyyWeb.', rating:5},
+  {name:'Rian Pratama', role:'Founder Velora Rent', text:'Proses cepat, hasilnya rapi, dan tim WayyyWeb sangat responsif membantu revisi.', rating:5},
+  {name:'Siti Nurhaliza', role:'Owner Kawungan Coffee', text:'Desainnya modern banget, pelanggan jadi lebih percaya sama brand cafe kami.', rating:4},
+  {name:'Budi Santoso', role:'CEO Cendana Group', text:'Company profile kami terlihat jauh lebih profesional, cocok untuk presentasi klien.', rating:5},
   {name:'Nadia Putri', role:'Pengantin, Undangan Digital', text:'Undangan digitalnya elegan dan mudah dibagikan ke tamu, banyak yang memuji.', rating:5},
-  {name:'Agus Wibowo', role:'Owner Prime Car Rental', text:'Sistem booking di website memudahkan pelanggan, omzet ikut naik.', rating:5},
+  {name:'Totok', role:'Owner Kedai Woeloeng', text:'Sistem pesan online dan reservasi di website memudahkan pelanggan, omzet ikut naik.', rating:5},
 ];
 const testiTrack = document.getElementById('testi-track');
 const testiDots = document.getElementById('testi-dots');
