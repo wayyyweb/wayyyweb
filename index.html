@@ -60,7 +60,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
 </head>
@@ -71,16 +71,17 @@
 <!-- ============ NAVBAR ============ -->
 <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-500">
   <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
-    <a href="#home" class="flex items-center gap-2">
-      <img src="img/wayyy.png" alt="WayyyWeb Logo" class="h-10 w-auto">
+    <a href="#home" class="flex items-center gap-2.5">
+      <img src="img/wayyy.png" alt="WayyyWeb Logo" class="h-9 w-auto">
+      <span class="hidden sm:inline font-mono text-[.68rem] tracking-wide" style="color:var(--ink-faint)">/ web&nbsp;agency</span>
     </a>
-    <div class="hidden md:flex items-center gap-9 text-sm font-medium" style="color:var(--ink)">
-      <a href="#home" class="nav-link">Home</a>
-      <a href="#tentang" class="nav-link">Tentang</a>
-      <a href="#layanan" class="nav-link">Layanan</a>
-      <a href="#portfolio" class="nav-link">Portfolio</a>
-      <a href="#faq" class="nav-link">FAQ</a>
-      <a href="#kontak" class="nav-link">Contact</a>
+    <div class="hidden md:flex items-center gap-8" style="color:var(--ink)">
+      <a href="#home" class="nav-link">home</a>
+      <a href="#tentang" class="nav-link">tentang</a>
+      <a href="#layanan" class="nav-link">layanan</a>
+      <a href="#portfolio" class="nav-link">portfolio</a>
+      <a href="#faq" class="nav-link">faq</a>
+      <a href="#kontak" class="nav-link">contact</a>
     </div>
     <div class="hidden md:flex items-center gap-3">
       <button id="theme-toggle" aria-label="Ganti mode tampilan" class="w-10 h-10 rounded-full btn-ghost flex items-center justify-center">
@@ -95,13 +96,13 @@
       <i data-lucide="menu" class="w-6 h-6"></i>
     </button>
   </nav>
-  <div id="mobile-menu" class="md:hidden hidden glass mx-4 rounded-2xl px-6 py-6 flex flex-col gap-4 text-sm font-medium">
-    <a href="#home">Home</a>
-    <a href="#tentang">Tentang</a>
-    <a href="#layanan">Layanan</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#faq">FAQ</a>
-    <a href="#kontak">Contact</a>
+  <div id="mobile-menu" class="md:hidden hidden glass mx-4 rounded-2xl px-6 py-6 flex flex-col gap-4 font-mono text-sm border" style="border-color:var(--line)">
+    <a href="#home">home</a>
+    <a href="#tentang">tentang</a>
+    <a href="#layanan">layanan</a>
+    <a href="#portfolio">portfolio</a>
+    <a href="#faq">faq</a>
+    <a href="#kontak">contact</a>
     <button id="theme-toggle-m" class="flex items-center gap-2"><i data-lucide="moon" class="w-4 h-4"></i> Mode Gelap</button>
     <a href="https://instagram.com/wayyyweb" target="_blank" rel="noopener" class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.5" y1="6.5" y2="6.5"/></svg> @wayyyweb</a>
     <a href="https://wa.me/628139369459" target="_blank" rel="noopener" class="btn-primary px-5 py-3 rounded-full text-center">Konsultasi Sekarang</a>
@@ -109,32 +110,21 @@
 </header>
 
 <!-- ============ HERO ============ -->
-<section id="home" class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden" style="background:var(--bg)">
-  <div class="blob b1" style="width:480px;height:480px; top:-10%; left:-10%; background:var(--primary);"></div>
-  <div class="blob b2" style="width:420px;height:420px; top:20%; right:-12%; background:var(--secondary);"></div>
-  <div class="blob b3" style="width:360px;height:360px; bottom:-10%; left:25%; background:var(--magenta);"></div>
+<section id="home" class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden" style="background:var(--paper)">
+  <div class="hero-grid"></div>
+  <div class="hero-glow" style="width:520px;height:520px; top:8%; right:-6%;"></div>
 
-  <svg id="mesh" class="absolute inset-0 w-full h-full opacity-40 mix-blend-multiply dark:mix-blend-screen" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 900">
-    <defs>
-      <linearGradient id="meshGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#2563EB"/>
-        <stop offset="50%" stop-color="#7C3AED"/>
-        <stop offset="100%" stop-color="#38BDF8"/>
-      </linearGradient>
-    </defs>
-    <path class="weave-line" d="M-100,500 C200,300 350,650 600,450 C850,250 1000,600 1250,400 C1400,280 1500,350 1600,300" stroke="url(#meshGrad)" stroke-width="3" fill="none" opacity="0.5"/>
-    <path class="weave-line" style="animation-delay:.4s" d="M-100,600 C200,420 350,750 600,560 C850,370 1000,700 1250,510 C1400,400 1500,450 1600,410" stroke="url(#meshGrad)" stroke-width="2" fill="none" opacity="0.3"/>
+  <svg id="mesh" class="absolute inset-0 w-full h-full opacity-30" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 900">
+    <path class="weave-line" d="M-100,560 C200,420 350,680 600,520 C850,360 1000,620 1250,460 C1400,370 1500,420 1600,390" stroke="var(--line-strong)" stroke-width="1.5" fill="none"/>
   </svg>
 
-  <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-14 items-center">
+  <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[1.08fr_0.92fr] gap-14 items-center">
     <div>
-      <div class="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-semibold mb-6" style="color:var(--primary-dark)">
-        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Digital Agency Website Terpercaya
-      </div>
-      <h1 class="reveal font-display font-extrabold leading-[1.08] text-4xl sm:text-5xl lg:text-[3.4rem] text-balance">
-        Bangun Website Profesional Bersama <span class="grad-text">WayyyWeb</span>
+      <div class="reveal eyebrow mb-7">digital agency &mdash; est. 2021</div>
+      <h1 class="reveal font-display font-semibold leading-[1.08] text-4xl sm:text-5xl lg:text-[3.5rem] text-balance">
+        Bangun website profesional bersama <span class="mark accent">WayyyWeb</span><span class="caret"></span>
       </h1>
-      <p class="reveal mt-6 text-lg leading-relaxed max-w-xl" style="color:var(--muted); transition-delay:.1s">
+      <p class="reveal mt-6 text-lg leading-relaxed max-w-xl" style="color:var(--ink-soft); transition-delay:.1s">
         Solusi pembuatan website modern, cepat, responsive, SEO Friendly, dan siap meningkatkan bisnis Anda.
       </p>
       <div class="reveal mt-9 flex flex-wrap gap-4" style="transition-delay:.2s">
@@ -145,10 +135,10 @@
           Lihat Portofolio <i data-lucide="layout-grid" class="w-4 h-4"></i>
         </a>
       </div>
-      <div class="reveal mt-12 flex flex-wrap gap-8" style="transition-delay:.3s">
-        <div><div class="font-display font-extrabold text-3xl grad-text"><span class="counter" data-target="120">0</span>+</div><div class="text-xs mt-1" style="color:var(--muted)">Website Selesai</div></div>
-        <div><div class="font-display font-extrabold text-3xl grad-text"><span class="counter" data-target="98">0</span>%</div><div class="text-xs mt-1" style="color:var(--muted)">Klien Puas</div></div>
-        <div><div class="font-display font-extrabold text-3xl grad-text"><span class="counter" data-target="24">0</span>/7</div><div class="text-xs mt-1" style="color:var(--muted)">Fast Support</div></div>
+      <div class="reveal mt-12 flex flex-wrap gap-10" style="transition-delay:.3s">
+        <div><div class="font-display font-semibold text-3xl"><span class="counter" data-target="120">0</span>+</div><div class="font-mono text-[.68rem] mt-1.5 tracking-wide" style="color:var(--ink-faint)">website selesai</div></div>
+        <div><div class="font-display font-semibold text-3xl"><span class="counter" data-target="98">0</span>%</div><div class="font-mono text-[.68rem] mt-1.5 tracking-wide" style="color:var(--ink-faint)">klien puas</div></div>
+        <div><div class="font-display font-semibold text-3xl"><span class="counter" data-target="24">0</span>/7</div><div class="font-mono text-[.68rem] mt-1.5 tracking-wide" style="color:var(--ink-faint)">fast support</div></div>
       </div>
     </div>
 
@@ -156,29 +146,35 @@
       <div class="relative mx-auto max-w-md lg:max-w-full device-shadow" style="transform-style:preserve-3d;">
         <svg viewBox="0 0 600 380" class="w-full h-auto">
           <rect x="30" y="10" width="540" height="330" rx="14" fill="var(--card)" stroke="var(--line)"/>
-          <rect x="30" y="10" width="540" height="26" rx="14" fill="var(--bg-alt)"/>
-          <circle cx="46" cy="23" r="4" fill="#ef4444"/><circle cx="60" cy="23" r="4" fill="#f59e0b"/><circle cx="74" cy="23" r="4" fill="#22c55e"/>
-          <rect x="50" y="55" width="230" height="18" rx="4" fill="url(#meshGrad)" opacity="0.9"/>
-          <rect x="50" y="85" width="330" height="10" rx="3" fill="var(--line)"/>
-          <rect x="50" y="102" width="280" height="10" rx="3" fill="var(--line)"/>
-          <rect x="50" y="128" width="110" height="34" rx="8" fill="url(#meshGrad)"/>
-          <rect x="330" y="55" width="220" height="150" rx="12" fill="var(--bg-alt)" stroke="var(--line)"/>
-          <rect x="50" y="185" width="150" height="90" rx="10" fill="var(--bg-alt)" stroke="var(--line)"/>
-          <rect x="215" y="185" width="150" height="90" rx="10" fill="var(--bg-alt)" stroke="var(--line)"/>
-          <rect x="380" y="220" width="170" height="60" rx="10" fill="var(--bg-alt)" stroke="var(--line)"/>
-          <rect x="440" y="360" width="220" height="0" fill="none"/>
-          <rect x="130" y="300" width="20" height="55" rx="4" fill="var(--ink)" opacity="0.9"/>
-          <rect x="105" y="352" width="70" height="8" rx="4" fill="var(--ink)" opacity="0.9"/>
+          <rect x="30" y="10" width="540" height="28" rx="14" fill="var(--paper-alt)"/>
+          <circle cx="47" cy="24" r="3.5" fill="var(--ink-faint)" opacity="0.5"/>
+          <circle cx="60" cy="24" r="3.5" fill="var(--ink-faint)" opacity="0.5"/>
+          <circle cx="73" cy="24" r="3.5" fill="var(--ink-faint)" opacity="0.5"/>
+          <rect x="230" y="17" width="140" height="14" rx="7" fill="var(--card)" stroke="var(--line)"/>
+          <text x="245" y="27" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--ink-faint)">wayyyweb.id</text>
+          <rect x="50" y="58" width="230" height="16" rx="4" fill="var(--ink)" opacity="0.92"/>
+          <rect x="50" y="86" width="330" height="9" rx="3" fill="var(--line)"/>
+          <rect x="50" y="102" width="280" height="9" rx="3" fill="var(--line)"/>
+          <rect x="50" y="126" width="110" height="32" rx="16" fill="var(--gold)"/>
+          <rect x="330" y="55" width="220" height="150" rx="12" fill="var(--paper-alt)" stroke="var(--line)"/>
+          <path d="M330,205 L450,120 L550,160 L550,205 Z" fill="var(--gold)" opacity="0.18"/>
+          <rect x="50" y="185" width="150" height="90" rx="10" fill="var(--paper-alt)" stroke="var(--line)"/>
+          <rect x="215" y="185" width="150" height="90" rx="10" fill="var(--paper-alt)" stroke="var(--line)"/>
+          <rect x="380" y="220" width="170" height="60" rx="10" fill="var(--paper-alt)" stroke="var(--line)"/>
+          <rect x="130" y="300" width="18" height="55" rx="4" fill="var(--ink)" opacity="0.85"/>
+          <rect x="105" y="352" width="65" height="7" rx="3.5" fill="var(--ink)" opacity="0.55"/>
         </svg>
-        <div class="floaty absolute -right-6 -bottom-8 w-40 sm:w-48">
+        <div class="absolute -right-5 -bottom-7 w-36 sm:w-44">
           <svg viewBox="0 0 200 380" class="w-full h-auto device-shadow">
-            <rect x="4" y="4" width="192" height="372" rx="30" fill="var(--card)" stroke="var(--line)" stroke-width="3"/>
-            <rect x="16" y="20" width="168" height="330" rx="10" fill="var(--bg-alt)"/>
-            <rect x="30" y="36" width="140" height="14" rx="4" fill="url(#meshGrad)"/>
-            <rect x="30" y="60" width="140" height="60" rx="8" fill="var(--card)" stroke="var(--line)"/>
-            <rect x="30" y="130" width="65" height="65" rx="8" fill="var(--card)" stroke="var(--line)"/>
-            <rect x="105" y="130" width="65" height="65" rx="8" fill="var(--card)" stroke="var(--line)"/>
-            <rect x="30" y="205" width="140" height="30" rx="8" fill="url(#meshGrad)" opacity="0.85"/>
+            <rect x="4" y="4" width="192" height="372" rx="26" fill="var(--card)" stroke="var(--line)" stroke-width="2.5"/>
+            <rect x="14" y="18" width="172" height="334" rx="8" fill="var(--paper-alt)"/>
+            <circle cx="24" cy="27" r="2.5" fill="var(--ink-faint)" opacity="0.6"/>
+            <circle cx="33" cy="27" r="2.5" fill="var(--ink-faint)" opacity="0.6"/>
+            <rect x="26" y="40" width="148" height="12" rx="3" fill="var(--ink)" opacity="0.85"/>
+            <rect x="26" y="60" width="148" height="55" rx="8" fill="var(--card)" stroke="var(--line)"/>
+            <rect x="26" y="126" width="70" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+            <rect x="104" y="126" width="70" height="62" rx="8" fill="var(--card)" stroke="var(--line)"/>
+            <rect x="26" y="200" width="148" height="28" rx="14" fill="var(--gold)" opacity="0.9"/>
           </svg>
         </div>
       </div>
@@ -195,8 +191,8 @@
 <section id="tentang" class="py-28 relative" style="background:var(--bg-alt)">
   <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-16 items-center">
     <div class="reveal-left">
-      <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--secondary)">Tentang Kami</span>
-      <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 mb-6 text-balance">Digital Agency yang Fokus Membangun <span class="grad-text">Website Modern</span></h2>
+      <span class="eyebrow">tentang kami</span>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl mt-3 mb-6 text-balance">Digital Agency yang Fokus Membangun <span class="mark accent">Website Modern</span></h2>
       <p class="leading-relaxed mb-8" style="color:var(--muted)">
         WayyyWeb adalah agensi digital yang membantu UMKM, bisnis, perusahaan, hingga personal branding memiliki website berkualitas agency, tanpa proses yang rumit. Kami merancang setiap website agar cepat, aman, dan mudah ditemukan di Google.
       </p>
@@ -214,19 +210,19 @@
       <div class="card rounded-3xl p-8">
         <div class="grid grid-cols-2 gap-5">
           <div class="rounded-2xl p-5" style="background:var(--bg)">
-            <div class="font-display font-extrabold text-2xl grad-text"><span class="counter" data-target="120">0</span>+</div>
+            <div class="font-display font-semibold text-2xl accent"><span class="counter" data-target="120">0</span>+</div>
             <div class="text-xs mt-1" style="color:var(--muted)">Project Selesai</div>
           </div>
           <div class="rounded-2xl p-5" style="background:var(--bg)">
-            <div class="font-display font-extrabold text-2xl grad-text"><span class="counter" data-target="6">0</span></div>
+            <div class="font-display font-semibold text-2xl accent"><span class="counter" data-target="6">0</span></div>
             <div class="text-xs mt-1" style="color:var(--muted)">Kategori Layanan</div>
           </div>
           <div class="rounded-2xl p-5" style="background:var(--bg)">
-            <div class="font-display font-extrabold text-2xl grad-text"><span class="counter" data-target="98">0</span>%</div>
+            <div class="font-display font-semibold text-2xl accent"><span class="counter" data-target="98">0</span>%</div>
             <div class="text-xs mt-1" style="color:var(--muted)">Kepuasan Klien</div>
           </div>
           <div class="rounded-2xl p-5" style="background:var(--bg)">
-            <div class="font-display font-extrabold text-2xl grad-text"><span class="counter" data-target="3">0</span> Hari</div>
+            <div class="font-display font-semibold text-2xl accent"><span class="counter" data-target="3">0</span> Hari</div>
             <div class="text-xs mt-1" style="color:var(--muted)">Estimasi Tercepat</div>
           </div>
         </div>
@@ -239,8 +235,8 @@
 <section id="layanan" class="py-28" style="background:var(--bg)">
   <div class="max-w-7xl mx-auto px-5 sm:px-8">
     <div class="text-center max-w-2xl mx-auto mb-16 reveal">
-      <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--secondary)">Layanan Kami</span>
-      <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 text-balance">Website untuk Setiap Kebutuhan Bisnis</h2>
+      <span class="eyebrow">layanan kami</span>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl mt-3 text-balance">Website untuk Setiap Kebutuhan Bisnis</h2>
     </div>
     <div id="services-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </div>
@@ -250,8 +246,8 @@
 <section id="portfolio" class="py-28" style="background:var(--bg-alt)">
   <div class="max-w-7xl mx-auto px-5 sm:px-8">
     <div class="text-center max-w-2xl mx-auto mb-10 reveal">
-      <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--secondary)">Portfolio</span>
-      <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 text-balance">Beberapa Karya Terbaik Kami</h2>
+      <span class="eyebrow">portfolio</span>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl mt-3 text-balance">Beberapa Karya Terbaik Kami</h2>
     </div>
     <div id="filter-bar" class="flex flex-wrap justify-center gap-3 mb-12 reveal"></div>
     <div id="portfolio-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -262,8 +258,8 @@
 <section class="py-28" style="background:var(--bg)">
   <div class="max-w-7xl mx-auto px-5 sm:px-8">
     <div class="text-center max-w-2xl mx-auto mb-16 reveal">
-      <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--secondary)">Kenapa Memilih WayyyWeb</span>
-      <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 text-balance">Standar Agency, Harga Bersahabat</h2>
+      <span class="eyebrow">kenapa memilih WayyyWeb</span>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl mt-3 text-balance">Standar Agency, Harga Bersahabat</h2>
     </div>
     <div id="why-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </div>
@@ -273,8 +269,8 @@
 <section class="py-28" style="background:var(--bg-alt)">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
     <div class="text-center max-w-2xl mx-auto mb-20 reveal">
-      <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--secondary)">Alur Pengerjaan</span>
-      <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 text-balance">Proses Kerja yang Transparan</h2>
+      <span class="eyebrow">alur pengerjaan</span>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl mt-3 text-balance">Proses Kerja yang Transparan</h2>
     </div>
     <div id="timeline" class="relative"></div>
   </div>
@@ -283,8 +279,8 @@
 <!-- ============ TESTIMONI ============ -->
 <section class="py-28 overflow-hidden" style="background:var(--bg)">
   <div class="max-w-4xl mx-auto px-5 sm:px-8 text-center mb-14 reveal">
-    <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--secondary)">Testimoni</span>
-    <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 text-balance">Apa Kata Klien Kami</h2>
+    <span class="eyebrow">testimoni</span>
+    <h2 class="font-display font-semibold text-3xl sm:text-4xl mt-3 text-balance">Apa Kata Klien Kami</h2>
   </div>
   <div class="relative max-w-3xl mx-auto px-5">
     <div id="testi-track" class="card rounded-3xl p-8 sm:p-12 text-center min-h-[280px] flex flex-col items-center justify-center transition-all duration-500"></div>
@@ -296,20 +292,22 @@
 <section id="faq" class="py-28" style="background:var(--bg-alt)">
   <div class="max-w-3xl mx-auto px-5 sm:px-8">
     <div class="text-center mb-14 reveal">
-      <span class="text-xs font-bold tracking-widest uppercase" style="color:var(--secondary)">FAQ</span>
-      <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-3 text-balance">Pertanyaan yang Sering Diajukan</h2>
+      <span class="eyebrow">faq</span>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl mt-3 text-balance">Pertanyaan yang Sering Diajukan</h2>
     </div>
-    <div id="faq-list" class="space-y-4"></div>
+    <div id="faq-list" class="border-t" style="border-color:var(--line)"></div>
   </div>
 </section>
 
 <!-- ============ CTA BESAR ============ -->
-<section class="relative py-28 overflow-hidden" style="background:linear-gradient(115deg,var(--primary-dark),var(--primary) 45%,var(--secondary) 80%,var(--magenta))">
-  <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 20% 20%, #fff 0%, transparent 40%), radial-gradient(circle at 80% 80%, #fff 0%, transparent 40%);"></div>
-  <div class="relative max-w-3xl mx-auto px-5 text-center text-white reveal-scale">
-    <h2 class="font-display font-extrabold text-3xl sm:text-5xl mb-6 text-balance">Siap Memiliki Website Profesional?</h2>
-    <p class="text-white/85 mb-10 max-w-xl mx-auto">Konsultasikan kebutuhan website Anda sekarang, gratis dan tanpa komitmen.</p>
-    <a href="https://wa.me/628139369459" target="_blank" rel="noopener" class="magnetic inline-flex items-center gap-2 bg-white text-[var(--primary-dark)] font-bold px-9 py-4 rounded-full shadow-2xl hover:-translate-y-1 transition-transform">
+<section class="relative py-28 overflow-hidden" style="background:var(--ink)">
+  <div class="absolute rounded-full" style="width:560px;height:560px; top:-20%; right:-8%; filter:blur(100px); opacity:.28; background:radial-gradient(circle, var(--gold) 0%, transparent 70%);"></div>
+  <span class="hidden lg:block absolute font-display font-semibold select-none pointer-events-none" style="font-size:13rem; left:-2rem; bottom:-4rem; color:rgba(255,255,255,0.04); line-height:1;">{ }</span>
+  <div class="relative max-w-3xl mx-auto px-5 text-center reveal-scale" style="color:var(--paper)">
+    <div class="eyebrow justify-center mb-6" style="color:var(--gold-soft)">siap berangkat</div>
+    <h2 class="font-display font-semibold text-3xl sm:text-5xl mb-6 text-balance">Siap memiliki website profesional?</h2>
+    <p class="mb-10 max-w-xl mx-auto" style="color:rgba(246,245,241,0.72)">Konsultasikan kebutuhan website Anda sekarang, gratis dan tanpa komitmen.</p>
+    <a href="https://wa.me/628139369459" target="_blank" rel="noopener" class="magnetic inline-flex items-center gap-2 font-semibold px-9 py-4 rounded-full shadow-2xl hover:-translate-y-1 transition-transform" style="background:var(--gold); color:var(--ink)">
       Hubungi Kami Sekarang <i data-lucide="message-circle" class="w-5 h-5"></i>
     </a>
   </div>
@@ -325,11 +323,11 @@
     <div>
       <h4 class="font-semibold mb-4 text-sm tracking-wide uppercase text-white/70">Menu</h4>
       <ul class="space-y-2.5 text-sm text-white/60">
-        <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
-        <li><a href="#tentang" class="hover:text-white transition-colors">Tentang</a></li>
-        <li><a href="#layanan" class="hover:text-white transition-colors">Layanan</a></li>
-        <li><a href="#portfolio" class="hover:text-white transition-colors">Portfolio</a></li>
-        <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+        <li><a href="#home" class="hover:text-[var(--gold-soft)] transition-colors">Home</a></li>
+        <li><a href="#tentang" class="hover:text-[var(--gold-soft)] transition-colors">Tentang</a></li>
+        <li><a href="#layanan" class="hover:text-[var(--gold-soft)] transition-colors">Layanan</a></li>
+        <li><a href="#portfolio" class="hover:text-[var(--gold-soft)] transition-colors">Portfolio</a></li>
+        <li><a href="#faq" class="hover:text-[var(--gold-soft)] transition-colors">FAQ</a></li>
       </ul>
     </div>
     <div>
@@ -344,9 +342,9 @@
     <div>
       <h4 class="font-semibold mb-4 text-sm tracking-wide uppercase text-white/70">Kontak</h4>
       <ul class="space-y-3 text-sm text-white/60">
-        <li><a href="https://wa.me/628139369459" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-white transition-colors"><i data-lucide="phone" class="w-4 h-4"></i> +62 813-9369-459</a></li>
-        <li><a href="mailto:wayyywebsite@gmail.com" class="flex items-center gap-2 hover:text-white transition-colors"><i data-lucide="mail" class="w-4 h-4"></i> wayyywebsite@gmail.com</a></li>
-        <li><a href="https://instagram.com/wayyyweb" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.5" y1="6.5" y2="6.5"/></svg> @wayyyweb</a></li>
+        <li><a href="https://wa.me/628139369459" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-[var(--gold-soft)] transition-colors"><i data-lucide="phone" class="w-4 h-4"></i> +62 813-9369-459</a></li>
+        <li><a href="mailto:wayyywebsite@gmail.com" class="flex items-center gap-2 hover:text-[var(--gold-soft)] transition-colors"><i data-lucide="mail" class="w-4 h-4"></i> wayyywebsite@gmail.com</a></li>
+        <li><a href="https://instagram.com/wayyyweb" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-[var(--gold-soft)] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.5" y1="6.5" y2="6.5"/></svg> @wayyyweb</a></li>
       </ul>
     </div>
   </div>
@@ -356,8 +354,9 @@
   </div>
 </footer>
 
-<a href="https://wa.me/628139369459" target="_blank" rel="noopener" aria-label="Chat WhatsApp" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full btn-primary flex items-center justify-center shadow-2xl floaty">
-  <i data-lucide="message-circle" class="w-6 h-6"></i>
+<a href="https://wa.me/628139369459" target="_blank" rel="noopener" aria-label="Chat WhatsApp" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full btn-primary flex items-center justify-center shadow-2xl">
+  <span class="pulse-ring" aria-hidden="true"></span>
+  <i data-lucide="message-circle" class="w-6 h-6 relative"></i>
 </a>
 
 <!-- ============ PORTFOLIO DETAIL MODAL ============ -->

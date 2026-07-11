@@ -82,17 +82,24 @@ const services = [
 ];
 const svcGrid = document.getElementById('services-grid');
 services.forEach((s,i) => {
+  const featured = i === 0;
   svcGrid.insertAdjacentHTML('beforeend', `
-  <div class="reveal card rounded-2xl p-7" style="transition-delay:${(i%3)*0.08}s">
-    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background:linear-gradient(135deg,var(--primary),var(--secondary))">
-      <i data-lucide="${s.icon}" class="w-6 h-6 text-white"></i>
+  <div class="reveal card rounded-2xl p-7 ${featured ? 'sm:col-span-2 lg:col-span-2 flex flex-col sm:flex-row sm:items-center gap-6' : ''}" style="transition-delay:${(i%3)*0.06}s">
+    <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 mb-5 ${featured ? 'sm:mb-0' : ''}" style="background:var(--ink)">
+      <i data-lucide="${s.icon}" class="w-5 h-5" style="color:var(--gold-soft)"></i>
     </div>
-    <h3 class="font-display font-bold text-lg mb-2">${s.name}</h3>
-    <p class="text-sm" style="color:var(--muted)">${s.desc}</p>
+    <div>
+      <span class="font-mono text-[.65rem]" style="color:var(--ink-faint)">0${i+1}</span>
+      <h3 class="font-display font-semibold text-lg mt-1 mb-2">${s.name}</h3>
+      <p class="text-sm leading-relaxed" style="color:var(--muted)">${s.desc}</p>
+    </div>
   </div>`);
 });
 svcGrid.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+function slugify(name){
+  return name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') + '.id';
+}
 const portfolioItems = [
   {cat:'Company Profile', name:'Cendana Group', color:'var(--primary)', img:'img/cendana.png', desc:'Company profile korporat untuk grup bisnis multi-unit, dengan tampilan tegas dan profesional.', demo:'portofolio/cendana-group/index.html'},
   {cat:'Travel', name:'Nusantara Trip', color:'var(--secondary)', img:'img/travel.png', desc:'Website travel agent dengan katalog paket wisata dan nuansa petualangan.', demo:'portofolio/travel/index.html'},
@@ -114,16 +121,20 @@ function renderPortfolio(filter){
   currentFilteredItems = portfolioItems.filter(p => filter==='Semua' || p.cat===filter);
   currentFilteredItems.forEach((p,i) => {
     pfGrid.insertAdjacentHTML('beforeend', `
-    <div class="reveal-scale group card rounded-2xl overflow-hidden cursor-pointer" data-index="${i}" style="transition-delay:${(i%3)*0.08}s">
-      <div class="h-44 relative overflow-hidden">
-        <img src="${p.img}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+    <div class="reveal-scale group browser-frame cursor-pointer" data-index="${i}" style="transition-delay:${(i%3)*0.08}s">
+      <div class="browser-chrome">
+        <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+        <span class="browser-url">${slugify(p.name)}</span>
+      </div>
+      <div class="h-40 relative overflow-hidden">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.08] transition-transform duration-500">
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-colors duration-300 flex items-center justify-center">
           <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-sm font-semibold flex items-center gap-1">Lihat Detail <i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
         </div>
       </div>
-      <div class="p-5">
-        <span class="text-xs font-semibold" style="color:var(--secondary)">${p.cat}</span>
-        <h3 class="font-display font-bold mt-1">${p.name}</h3>
+      <div class="p-5" style="border-top:1px solid var(--line)">
+        <span class="font-mono text-[.68rem]" style="color:var(--gold)">${p.cat}</span>
+        <h3 class="font-display font-semibold mt-1">${p.name}</h3>
       </div>
     </div>`);
   });
@@ -147,15 +158,19 @@ const pfModalContent = document.getElementById('portfolio-modal-content');
 function openPortfolioModal(p){
   const waText = encodeURIComponent(`Halo WayyyWeb, saya tertarik dengan project "${p.name}" (${p.cat}) di portfolio. Boleh minta info lebih lanjut?`);
   pfModalContent.innerHTML = `
-    <div class="relative">
-      <button id="pf-modal-close" aria-label="Tutup" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full glass flex items-center justify-center">
-        <i data-lucide="x" class="w-5 h-5"></i>
+    <div class="browser-chrome relative">
+      <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+      <span class="browser-url">${slugify(p.name)}</span>
+      <button id="pf-modal-close" aria-label="Tutup" class="ml-auto w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background:var(--card); border:1px solid var(--line)">
+        <i data-lucide="x" class="w-4 h-4"></i>
       </button>
+    </div>
+    <div class="relative">
       <img src="${p.img}" alt="${p.name}" class="w-full aspect-[3/2] object-cover">
     </div>
     <div class="p-7 sm:p-8">
-      <span class="text-xs font-semibold" style="color:var(--secondary)">${p.cat}</span>
-      <h3 class="font-display font-extrabold text-2xl mt-1 mb-3">${p.name}</h3>
+      <span class="font-mono text-[.7rem]" style="color:var(--gold)">${p.cat}</span>
+      <h3 class="font-display font-semibold text-2xl mt-1 mb-3">${p.name}</h3>
       <p class="text-sm leading-relaxed mb-7" style="color:var(--muted)">${p.desc}</p>
       <div class="flex flex-col sm:flex-row gap-3">
         <a href="${p.demo}" target="_blank" rel="noopener" class="btn-ghost border w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold inline-flex items-center justify-center gap-2" style="border-color:var(--line)">
@@ -192,12 +207,12 @@ const whyItems = [
 const whyGrid = document.getElementById('why-grid');
 whyItems.forEach((w,i) => {
   whyGrid.insertAdjacentHTML('beforeend', `
-  <div class="reveal text-center card rounded-2xl p-7" style="transition-delay:${(i%3)*0.08}s">
-    <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-5" style="background:var(--bg-alt)">
-      <i data-lucide="${w.icon}" class="w-6 h-6" style="color:var(--secondary)"></i>
+  <div class="reveal text-left card rounded-2xl p-7" style="transition-delay:${(i%3)*0.06}s">
+    <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-5" style="background:var(--ink)">
+      <i data-lucide="${w.icon}" class="w-5 h-5" style="color:var(--gold-soft)"></i>
     </div>
-    <h3 class="font-display font-bold mb-2">${w.name}</h3>
-    <p class="text-sm" style="color:var(--muted)">${w.desc}</p>
+    <h3 class="font-display font-semibold mb-2">${w.name}</h3>
+    <p class="text-sm leading-relaxed" style="color:var(--muted)">${w.desc}</p>
   </div>`);
 });
 whyGrid.querySelectorAll('.reveal').forEach(el => io.observe(el));
@@ -211,16 +226,16 @@ const timelineSteps = [
   {name:'Launching Website', desc:'Website resmi online dan siap digunakan.', icon:'rocket'},
 ];
 const tlWrap = document.getElementById('timeline');
-tlWrap.innerHTML = `<div class="absolute left-[27px] md:left-1/2 top-0 bottom-0 w-0.5 md:-translate-x-1/2" style="background:var(--line)"></div>` +
+tlWrap.innerHTML = `<div class="absolute left-[27px] md:left-1/2 top-0 bottom-0 w-px md:-translate-x-1/2" style="background:var(--line)"></div>` +
   timelineSteps.map((s,i) => `
   <div class="reveal${i%2===0?'-left':'-right'} relative flex md:items-center gap-6 md:gap-0 mb-14 last:mb-0 ${i%2===0?'md:flex-row':'md:flex-row-reverse'}">
-    <div class="w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center z-10" style="background:linear-gradient(135deg,var(--primary),var(--secondary))">
-      <i data-lucide="${s.icon}" class="w-6 h-6 text-white"></i>
+    <div class="w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center z-10" style="background:var(--card); border:1px solid var(--line-strong)">
+      <i data-lucide="${s.icon}" class="w-5 h-5" style="color:var(--ink)"></i>
     </div>
     <div class="card rounded-2xl p-6 md:w-[calc(50%-3rem)] ${i%2===0?'md:ml-8':'md:mr-8'}">
-      <span class="text-xs font-bold" style="color:var(--secondary)">Langkah ${i+1}</span>
-      <h3 class="font-display font-bold text-lg mt-1 mb-1">${s.name}</h3>
-      <p class="text-sm" style="color:var(--muted)">${s.desc}</p>
+      <span class="step-no">0${i+1} &mdash;</span>
+      <h3 class="font-display font-semibold text-lg mt-1 mb-1">${s.name}</h3>
+      <p class="text-sm leading-relaxed" style="color:var(--muted)">${s.desc}</p>
     </div>
   </div>`).join('');
 tlWrap.querySelectorAll('.reveal-left,.reveal-right').forEach(el => io.observe(el));
@@ -239,14 +254,14 @@ let testiIndex = 0, testiTimer;
 function renderTesti(i){
   const t = testimonials[i];
   testiTrack.innerHTML = `
-    <div class="flex gap-1 mb-5">${Array(5).fill(0).map((_,s)=>`<i data-lucide="star" class="w-5 h-5" style="color:${s<t.rating?'#F59E0B':'var(--line)'}; fill:${s<t.rating?'#F59E0B':'none'}"></i>`).join('')}</div>
-    <p class="text-lg sm:text-xl font-medium leading-relaxed mb-8 max-w-xl text-balance">&ldquo;${t.text}&rdquo;</p>
-    <div class="w-14 h-14 rounded-full flex items-center justify-center font-display font-bold text-white mb-3" style="background:linear-gradient(135deg,var(--primary),var(--secondary))">${t.name.charAt(0)}</div>
-    <div class="font-semibold">${t.name}</div>
-    <div class="text-sm" style="color:var(--muted)">${t.role}</div>
+    <div class="flex gap-1 mb-5">${Array(5).fill(0).map((_,s)=>`<i data-lucide="star" class="w-4 h-4" style="color:${s<t.rating?'var(--gold)':'var(--line)'}; fill:${s<t.rating?'var(--gold)':'none'}"></i>`).join('')}</div>
+    <p class="font-display text-xl sm:text-2xl font-medium leading-snug mb-8 max-w-xl text-balance">&ldquo;${t.text}&rdquo;</p>
+    <div class="w-12 h-12 rounded-full flex items-center justify-center font-display font-semibold mb-3" style="background:var(--ink); color:var(--gold-soft)">${t.name.charAt(0)}</div>
+    <div class="font-semibold text-sm">${t.name}</div>
+    <div class="font-mono text-xs mt-0.5" style="color:var(--ink-faint)">${t.role}</div>
   `;
   lucide.createIcons();
-  testiDots.querySelectorAll('button').forEach((b,idx) => b.style.background = idx===i ? 'linear-gradient(90deg,var(--primary),var(--secondary))' : 'var(--line)');
+  testiDots.querySelectorAll('button').forEach((b,idx) => b.style.background = idx===i ? 'var(--gold)' : 'var(--line)');
 }
 testimonials.forEach((_,i) => {
   testiDots.insertAdjacentHTML('beforeend', `<button aria-label="Testimoni ${i+1}" class="w-2.5 h-2.5 rounded-full transition-all" style="background:var(--line)"></button>`);
@@ -263,14 +278,15 @@ const faqs = [
   {q:'Apakah bisa custom sesuai kebutuhan?', a:'Tentu, kami dapat menyesuaikan desain, fitur, dan struktur website sesuai kebutuhan bisnis Anda.'},
 ];
 const faqList = document.getElementById('faq-list');
+faqList.classList.add('space-y-0');
 faqs.forEach((f,i) => {
   faqList.insertAdjacentHTML('beforeend', `
-  <div class="reveal card rounded-2xl overflow-hidden" style="transition-delay:${i*0.05}s">
-    <button class="faq-btn w-full flex items-center justify-between gap-4 p-6 text-left font-semibold">
-      <span>${f.q}</span>
-      <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 transition-transform"></i>
+  <div class="reveal" style="transition-delay:${i*0.05}s; border-bottom:1px solid var(--line)">
+    <button class="faq-btn w-full flex items-center justify-between gap-4 py-6 text-left font-display font-medium">
+      <span class="flex items-baseline gap-3"><span class="font-mono text-xs" style="color:var(--ink-faint)">0${i+1}</span>${f.q}</span>
+      <i data-lucide="plus" class="w-4 h-4 shrink-0 transition-transform" style="color:var(--gold)"></i>
     </button>
-    <div class="acc-content px-6"><p class="pb-6 text-sm" style="color:var(--muted)">${f.a}</p></div>
+    <div class="acc-content"><p class="pb-6 pl-8 pr-8 text-sm leading-relaxed" style="color:var(--muted)">${f.a}</p></div>
   </div>`);
 });
 faqList.querySelectorAll('.reveal').forEach(el => io.observe(el));
@@ -282,6 +298,6 @@ document.querySelectorAll('.faq-btn').forEach(btn => {
     const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
     document.querySelectorAll('.acc-content').forEach(c => c.style.maxHeight = '0px');
     document.querySelectorAll('.faq-btn i').forEach(ic => ic.style.transform = 'rotate(0deg)');
-    if(!isOpen){ content.style.maxHeight = content.scrollHeight + 'px'; icon.style.transform = 'rotate(180deg)'; }
+    if(!isOpen){ content.style.maxHeight = content.scrollHeight + 'px'; icon.style.transform = 'rotate(45deg)'; }
   });
 });
